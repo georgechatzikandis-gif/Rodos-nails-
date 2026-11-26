@@ -71,6 +71,26 @@ const WORK = [
   { video: "assets/work/v09.mp4", poster: "assets/work/v09.jpg", w: 720, h: 1280, alt: "Nail preparation with an e-file" },
 ];
 
+/* ---- Brows & lashes results (files in assets/brows)
+   tags: "tattoo" = permanent brows, "ba" = before & after, "lash" = lash lift / lamination ---- */
+const BROWS = [
+  { img: "assets/brows/b01.jpg", w: 1000, h: 1248, tags: ["tattoo"], alt: "Powder brows, close-up" },
+  { img: "assets/brows/b05.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], ba: true, alt: "Brow mapping before, permanent brows after" },
+  { img: "assets/brows/b07.jpg", w: 1000, h: 1000, tags: ["tattoo"], alt: "Collection of permanent brow results" },
+  { img: "assets/brows/b12.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], ba: true, alt: "Cover-up of an old brow tattoo, before and after" },
+  { img: "assets/brows/b08.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], ba: true, alt: "Permanent brows, before and after" },
+  { img: "assets/brows/b15.jpg", w: 1000, h: 1776, tags: ["tattoo"], alt: "Fresh powder brows" },
+  { img: "assets/brows/b06.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], ba: true, alt: "Permanent brows, before and after" },
+  { img: "assets/brows/b09.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], ba: true, alt: "Before and healed result before touch-up" },
+  { img: "assets/brows/b14.jpg", w: 1000, h: 1250, tags: ["tattoo", "lash"], alt: "Powder brows, lip tattoo, lash lift and brow lamination" },
+  { img: "assets/brows/b10.jpg", w: 1000, h: 1000, tags: ["lash", "ba"], ba: true, alt: "Brow lamination and lash lift, before and after" },
+  { img: "assets/brows/b02.jpg", w: 1000, h: 1248, tags: ["lash", "ba"], ba: true, alt: "Lash lift, brow shaping and tint, before and after" },
+  { img: "assets/brows/b13.jpg", w: 1000, h: 1250, tags: ["lash", "ba"], ba: true, alt: "Lash lift and tint, before and after" },
+  { img: "assets/brows/b11.jpg", w: 1000, h: 1772, tags: ["lash", "ba"], ba: true, alt: "Lash lift and brow lamination, before and after" },
+  { img: "assets/brows/b03.jpg", w: 1000, h: 1776, tags: ["lash"], alt: "Laminated brows and lifted lashes" },
+  { img: "assets/brows/b04.jpg", w: 1000, h: 1776, tags: ["lash"], alt: "Brow lamination and lash lift result" },
+];
+
 (() => {
   const $ =(s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -115,55 +135,21 @@ const WORK = [
   }), { threshold: 0.6 });
   $$(".rating").forEach(el => countIO.observe(el));
 
-  /* ---------- Our work: photo/video grid + lightbox ---------- */
-  const worksEl = $(".works");
-  worksEl.innerHTML = WORK.map((w, i) => `
-    <button class="work reveal" style="--d:${i % 3}" data-i="${i}" aria-label="${w.alt} — view larger">
-      ${w.video
-        ? `<video muted loop playsinline preload="none" poster="${w.poster}" width="${w.w}" height="${w.h}" aria-hidden="true"><source src="${w.video}" type="video/mp4"></video><span class="work__badge" aria-hidden="true">▶</span>`
-        : `<img src="${w.img}" alt="" width="${w.w}" height="${w.h}" loading="lazy" decoding="async">`}
-      <span class="work__zoom" aria-hidden="true">View +</span>
-    </button>`).join("");
-
-  // masonry that keeps the list order row by row: each item goes into the shortest column
-  const workItems = $$(".work", worksEl);
-  let colCount = 0;
-  const layoutWorks = () => {
-    const n = innerWidth <= 560 ? 2 : innerWidth <= 900 ? 2 : 3;
-    if (n === colCount) return;
-    colCount = n;
-    const cols = Array.from({ length: n }, () => { const c = document.createElement("div"); c.className = "works__col"; return c; });
-    const heights = new Array(n).fill(0);
-    workItems.forEach((el, i) => {
-      const k = heights.indexOf(Math.min(...heights));
-      cols[k].appendChild(el);
-      heights[k] += WORK[i].h / WORK[i].w;
-    });
-    worksEl.replaceChildren(...cols);
-  };
-  layoutWorks();
-  addEventListener("resize", layoutWorks);
-
-  // play grid videos only while they are on screen
-  const vidIO = new IntersectionObserver(entries => entries.forEach(e => {
-    if (e.isIntersecting && !reduceMotion) e.target.play().catch(() => {});
-    else e.target.pause();
-  }), { threshold: 0.25 });
-  $$("video", worksEl).forEach(v => vidIO.observe(v));
-
+  /* ---------- Galleries (Our work + Brows & lashes): masonry grid + shared lightbox ---------- */
   const lb = $(".lightbox"), stage = $(".lightbox__stage"), lbCount = $(".lightbox__count");
-  let lbIndex = 0, lastFocus = null;
-  const showWork = i => {
-    lbIndex = (i + WORK.length) % WORK.length;
-    const w = WORK[lbIndex];
+  let lbList = [], lbIndex = 0, lastFocus = null;
+  const showItem = i => {
+    lbIndex = (i + lbList.length) % lbList.length;
+    const w = lbList[lbIndex];
     stage.innerHTML = w.video
       ? `<video src="${w.video}" poster="${w.poster}" muted loop playsinline autoplay aria-label="${w.alt}"></video>`
       : `<img src="${w.img}" alt="${w.alt}">`;
-    lbCount.textContent = `${lbIndex + 1} / ${WORK.length}`;
+    lbCount.textContent = `${lbIndex + 1} / ${lbList.length}`;
   };
-  const openLb = i => {
+  const openLb = (list, i) => {
     lastFocus = document.activeElement;
-    showWork(i);
+    lbList = list;
+    showItem(i);
     lb.hidden = false;
     document.body.style.overflow = "hidden";
     $(".lightbox__close").focus();
@@ -173,24 +159,93 @@ const WORK = [
     document.body.style.overflow = "";
     lastFocus && lastFocus.focus();
   };
-  worksEl.addEventListener("click", e => { const b = e.target.closest(".work"); if (b) openLb(+b.dataset.i); });
   $(".lightbox__close").addEventListener("click", closeLb);
-  $(".lightbox__nav--prev").addEventListener("click", () => showWork(lbIndex - 1));
-  $(".lightbox__nav--next").addEventListener("click", () => showWork(lbIndex + 1));
+  $(".lightbox__nav--prev").addEventListener("click", () => showItem(lbIndex - 1));
+  $(".lightbox__nav--next").addEventListener("click", () => showItem(lbIndex + 1));
   lb.addEventListener("click", e => { if (e.target === lb || e.target === stage) closeLb(); });
   addEventListener("keydown", e => {
     if (lb.hidden) return;
     if (e.key === "Escape") closeLb();
-    if (e.key === "ArrowLeft") showWork(lbIndex - 1);
-    if (e.key === "ArrowRight") showWork(lbIndex + 1);
+    if (e.key === "ArrowLeft") showItem(lbIndex - 1);
+    if (e.key === "ArrowRight") showItem(lbIndex + 1);
   });
   let touchX = null;
   lb.addEventListener("touchstart", e => { touchX = e.touches[0].clientX; }, { passive: true });
   lb.addEventListener("touchend", e => {
     if (touchX === null) return;
     const dx = e.changedTouches[0].clientX - touchX; touchX = null;
-    if (Math.abs(dx) > 50) showWork(lbIndex + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 50) showItem(lbIndex + (dx < 0 ? 1 : -1));
   });
+
+  // play grid videos only while they are on screen
+  const vidIO = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting && !reduceMotion) e.target.play().catch(() => {});
+    else e.target.pause();
+  }), { threshold: 0.25 });
+
+  const makeGallery = (root, list) => {
+    root.innerHTML = list.map((w, i) => `
+      <button class="work reveal" style="--d:${i % 3}" data-i="${i}" aria-label="${w.alt} — view larger">
+        ${w.video
+          ? `<video muted loop playsinline preload="none" poster="${w.poster}" width="${w.w}" height="${w.h}" aria-hidden="true"><source src="${w.video}" type="video/mp4"></video><span class="work__badge" aria-hidden="true">▶</span>`
+          : `<img src="${w.img}" alt="" width="${w.w}" height="${w.h}" loading="lazy" decoding="async">`}
+        <span class="work__zoom" aria-hidden="true">View +</span>
+      </button>`).join("");
+    const items = $$(".work", root);
+    let shown = list.map((_, i) => i);
+    let colCount = 0;
+    // masonry that keeps the list order row by row: each item goes into the shortest column
+    const layout = force => {
+      const n = innerWidth <= 900 ? 2 : 3;
+      if (n === colCount && !force) return;
+      colCount = n;
+      const cols = Array.from({ length: n }, () => { const c = document.createElement("div"); c.className = "works__col"; return c; });
+      const heights = new Array(n).fill(0);
+      shown.forEach(i => {
+        const k = heights.indexOf(Math.min(...heights));
+        cols[k].appendChild(items[i]);
+        heights[k] += list[i].h / list[i].w;
+      });
+      root.replaceChildren(...cols);
+    };
+    layout();
+    addEventListener("resize", () => layout());
+    $$("video", root).forEach(v => vidIO.observe(v));
+    root.addEventListener("click", e => {
+      const b = e.target.closest(".work");
+      if (b) openLb(shown.map(i => list[i]), shown.indexOf(+b.dataset.i));
+    });
+    return {
+      filter(test) {
+        root.classList.add("is-filtering");
+        setTimeout(() => {
+          shown = list.map((_, i) => i).filter(i => test(list[i]));
+          layout(true);
+          shown.forEach(i => items[i].classList.add("is-in"));
+          root.classList.remove("is-filtering");
+        }, reduceMotion ? 0 : 280);
+      },
+    };
+  };
+
+  makeGallery($(".works"), WORK);
+
+  /* ---------- Brows & lashes: feature video + filterable results ---------- */
+  const brows = makeGallery($(".brows-grid"), BROWS);
+  const chips = $$(".chip");
+  chips.forEach(chip => {
+    const f = chip.dataset.filter;
+    $(".chip__n", chip).textContent = f === "all" ? BROWS.length : BROWS.filter(b => b.tags.includes(f)).length;
+    chip.addEventListener("click", () => {
+      chips.forEach(c => c.setAttribute("aria-pressed", c === chip));
+      brows.filter(b => f === "all" || b.tags.includes(f));
+    });
+  });
+  const browVideo = $(".brows__video video");
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting && !reduceMotion) browVideo.play().catch(() => {});
+    else browVideo.pause();
+  }, { threshold: 0.3 }).observe(browVideo);
 
   /* ---------- Live opening hours ---------- */
   const toMin = t => { const [h, m] = t.split(":").map(Number); return h * 60 + m; };
