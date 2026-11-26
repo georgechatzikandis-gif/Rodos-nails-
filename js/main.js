@@ -9,7 +9,7 @@ const CONFIG = {
   phones: ["+30 22410 69344", "+30 6955 36 9825"], // landline, mobile
   whatsapp: "+30 6955 36 9825",
   email: "",                           // leave empty to hide it
-  instagram: "https://instagram.com/", // placeholder: full profile URL
+  instagram: "https://www.instagram.com/mag_nails_beautyshop/",
   address: "Alexandrou Papadiamanti 4<br>Rhodes, Greece",
   timeZone: "Europe/Athens",           // the live "open now" status uses the salon's local time
   hours: [ // Monday first; [open, close] in 24h time, or null when closed

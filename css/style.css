@@ -819,3 +819,17 @@ a.rating:hover { border-color: var(--ink); transform: translateY(-5px); }
 .has-bg:not(.has-bg--dark) :is(p, h1, h2, h3, .tab, .menu__book, .eyebrow) { text-shadow: 0 0 14px rgba(250,247,244,.95), 0 0 2px rgba(250,247,244,.9); }
 .has-bg:not(.has-bg--dark) .hero__sub, .has-bg:not(.has-bg--dark) .menu__item p { color: #2e2a2a; }
 .has-bg--dark :is(p, h2, h3) { text-shadow: 0 1px 12px rgba(0,0,0,.5); }
+
+/* ---------- Instagram ---------- */
+.fab__icon--ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285aeb 90%); }
+.hero__ig {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 26px;
+  font-size: 13px; font-weight: 500; letter-spacing: .08em; color: var(--ink);
+  opacity: 0; transform: translateY(20px); transition: opacity 1s var(--ease), transform 1s var(--ease), color .3s;
+}
+.is-ready .hero__ig { opacity: 1; transform: none; transition-delay: 1.1s; }
+.hero__ig svg { width: 22px; height: 22px; transition: transform .5s var(--ease); }
+.hero__ig span { background: linear-gradient(currentColor 0 0) left bottom / 0 1px no-repeat; transition: background-size .45s var(--ease); }
+.hero__ig:hover { color: var(--rose); }
+.hero__ig:hover svg { transform: rotate(-10deg) scale(1.15); }
+.hero__ig:hover span { background-size: 100% 1px; }
