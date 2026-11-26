@@ -788,10 +788,14 @@ a.rating:hover { border-color: var(--ink); transform: translateY(-5px); }
   transform: translate3d(0, var(--py, 0px), 0); will-change: transform;
 }
 .sec-bg::after { /* light veil keeps the text easy to read */
-  content: ""; position: absolute; inset: 0; background: rgba(250,247,244,.84);
+  content: ""; position: absolute; inset: 0; background: rgba(250,247,244,.66);
 }
-.has-bg--dark .sec-bg::after { background: rgba(22,22,22,.8); }
-.services.has-bg .sec-bg::after { background: linear-gradient(rgba(250,247,244,.8), rgba(250,247,244,.92)); }
-.reviews.has-bg .sec-bg::after { background: rgba(250,247,244,.8); }
-.hero.has-bg .hero__blobs { z-index: -1; }
-.hero.has-bg .sec-bg::after { background: rgba(250,247,244,.8); }
+.has-bg--dark .sec-bg::after { background: rgba(22,22,22,.64); }
+.services.has-bg .sec-bg::after { background: linear-gradient(rgba(250,247,244,.62), rgba(250,247,244,.8)); }
+.reviews.has-bg .sec-bg::after { background: rgba(250,247,244,.6); }
+.hero.has-bg .hero__blobs { z-index: -1; opacity: .45; }
+.hero.has-bg .sec-bg::after { background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(250,247,244,.72), rgba(250,247,244,.5)); }
+/* soft halo behind small text on photo backgrounds, instead of a heavier veil */
+.has-bg:not(.has-bg--dark) :is(p, h1, h2, h3, .tab, .menu__book, .eyebrow) { text-shadow: 0 0 14px rgba(250,247,244,.95), 0 0 2px rgba(250,247,244,.9); }
+.has-bg:not(.has-bg--dark) .hero__sub, .has-bg:not(.has-bg--dark) .menu__item p { color: #2e2a2a; }
+.has-bg--dark :is(p, h2, h3) { text-shadow: 0 1px 12px rgba(0,0,0,.5); }
