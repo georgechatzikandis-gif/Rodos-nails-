@@ -5,6 +5,7 @@
 /* ---- EDIT YOUR SALON DETAILS HERE ---- */
 const CONFIG = {
   treatwell: "https://www.treatwell.gr/katasthma/mag-nails-beauty-shop/", // all bookings go here
+  eshop: "http://ritzy-nails-greece.gr",  // online shop for products
   phones: ["+30 22410 69344", "+30 6955 36 9825"], // landline, mobile
   whatsapp: "+30 6955 36 9825",
   email: "",                           // leave empty to hide it
@@ -126,6 +127,7 @@ const LIPS = [
   else $$('[data-optional="email"]').forEach(el => el.remove());
   $$('[data-config="instagram"]').forEach(a => { a.href = CONFIG.instagram; });
   $$('[data-config="treatwell"]').forEach(a => { a.href = CONFIG.treatwell; });
+  $$('[data-config="eshop"]').forEach(a => { a.href = CONFIG.eshop; });
   $$('[data-config="whatsapp"]').forEach(a => { a.href = `https://wa.me/${CONFIG.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent("Hello!")}`; });
   $$('[data-config="address"]').forEach(p => { p.innerHTML = CONFIG.address; });
   $("#year").textContent = new Date().getFullYear();
