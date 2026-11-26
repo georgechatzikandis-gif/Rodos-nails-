@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAG Nails &amp; Beauty Shop</title>
+  <meta name="description" content="MAG Nails & Beauty Shop — manicure, pedicure, gel, nail art and beauty treatments." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Josefin+Sans:wght@200;300&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="is-loading">
+
+  <!-- Reusable logo -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="logo" viewBox="0 0 760 250">
+        <text class="lg-mag" x="4" y="150" textLength="460" lengthAdjust="spacingAndGlyphs">MAG</text>
+        <text class="lg-nails" x="478" y="150" textLength="262" lengthAdjust="spacingAndGlyphs">NAILS</text>
+        <line class="lg-strike" x1="170" y1="96" x2="420" y2="96" />
+        <path class="lg-tail" d="M432 152 C 446 170, 470 172, 500 172 L 744 172" />
+        <path class="lg-box" d="M744 172 L 744 244 L 4 244 L 4 178 L 450 178" />
+        <text class="lg-shop" x="374" y="224" text-anchor="middle">&amp; BEAUTY SHOP</text>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- Preloader -->
+  <div class="loader" aria-hidden="true">
+    <svg class="loader__logo logo-anim" viewBox="0 0 760 250"><use href="#logo" /></svg>
+    <div class="loader__bar"><span></span></div>
+  </div>
+
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <header class="nav">
+    <a href="#top" class="nav__brand" aria-label="MAG Nails home">
+      <svg viewBox="0 0 760 250"><use href="#logo" /></svg>
+    </a>
+    <nav class="nav__links" id="menu">
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#about">About</a>
+      <a href="#visit">Visit</a>
+      <a href="#book" class="btn btn--small magnetic">Book now</a>
+    </nav>
+    <button class="nav__toggle" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero__blobs" aria-hidden="true">
+        <span class="blob blob--1" data-depth="0.4"></span>
+        <span class="blob blob--2" data-depth="-0.3"></span>
+        <span class="blob blob--3" data-depth="0.2"></span>
+      </div>
+
+      <div class="hero__inner">
+        <p class="eyebrow hero__eyebrow">Nails · Beauty · Care</p>
+        <svg class="hero__logo logo-anim" viewBox="0 0 760 250" role="img" aria-label="MAG Nails &amp; Beauty Shop">
+          <use href="#logo" />
+        </svg>
+        <h1 class="hero__title split">Details that <em>speak</em> for you.</h1>
+        <p class="hero__sub">Precision manicures, flawless gel and hand-painted nail art in a calm, modern studio.</p>
+        <div class="hero__cta">
+          <a href="#book" class="btn magnetic">Book an appointment</a>
+          <a href="#services" class="btn btn--ghost magnetic">See the menu</a>
+        </div>
+      </div>
+
+      <a href="#book" class="badge" aria-label="Book now">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <defs><path id="circle" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs>
+          <text><textPath href="#circle" textLength="482" lengthAdjust="spacing">BOOK NOW · NAILS &amp; BEAUTY · BOOK NOW · NAILS &amp; BEAUTY ·</textPath></text>
+        </svg>
+        <span class="badge__dot">✦</span>
+      </a>
+
+      <div class="hero__scroll" aria-hidden="true"><span></span></div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Manicure</span><i>✦</i><span>Pedicure</span><i>✦</i><span>Gel Polish</span><i>✦</i><span>Acrylic</span><i>✦</i><span>Nail Art</span><i>✦</i><span>Brows &amp; Lashes</span><i>✦</i>
+        <span>Manicure</span><i>✦</i><span>Pedicure</span><i>✦</i><span>Gel Polish</span><i>✦</i><span>Acrylic</span><i>✦</i><span>Nail Art</span><i>✦</i><span>Brows &amp; Lashes</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- Services -->
+    <section class="section services" id="services">
+      <div class="section__head">
+        <p class="eyebrow reveal">01 — The menu</p>
+        <h2 class="section__title split">Our services</h2>
+      </div>
+
+      <div class="tabs reveal" role="tablist">
+        <button class="tab is-active" role="tab" aria-selected="true" data-tab="nails">Nails</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="feet">Pedicure</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="beauty">Beauty</button>
+        <span class="tabs__indicator" aria-hidden="true"></span>
+      </div>
+
+      <!-- Prices are examples — edit to match the salon's real price list -->
+      <div class="menu is-active" data-panel="nails">
+        <article class="menu__item"><div><h3>Classic Manicure</h3><p>Shape, cuticle care, hand massage &amp; polish</p></div><span class="menu__dots"></span><b>€15</b></article>
+        <article class="menu__item"><div><h3>Gel Polish Manicure</h3><p>Long-lasting high-shine colour, up to 3 weeks</p></div><span class="menu__dots"></span><b>€22</b></article>
+        <article class="menu__item"><div><h3>Builder Gel / BIAB</h3><p>Strength &amp; structure on natural nails</p></div><span class="menu__dots"></span><b>€30</b></article>
+        <article class="menu__item"><div><h3>Acrylic Full Set</h3><p>Extensions in your choice of shape &amp; length</p></div><span class="menu__dots"></span><b>€40</b></article>
+        <article class="menu__item"><div><h3>Nail Art</h3><p>French, chrome, ombré, hand-painted designs</p></div><span class="menu__dots"></span><b>from €3</b></article>
+      </div>
+      <div class="menu" data-panel="feet">
+        <article class="menu__item"><div><h3>Classic Pedicure</h3><p>Soak, exfoliation, cuticle care &amp; polish</p></div><span class="menu__dots"></span><b>€22</b></article>
+        <article class="menu__item"><div><h3>Gel Pedicure</h3><p>Classic pedicure finished with gel colour</p></div><span class="menu__dots"></span><b>€28</b></article>
+        <article class="menu__item"><div><h3>Spa Pedicure</h3><p>Scrub, mask and extended relaxing massage</p></div><span class="menu__dots"></span><b>€35</b></article>
+        <article class="menu__item"><div><h3>Mani + Pedi Combo</h3><p>Gel manicure with classic pedicure</p></div><span class="menu__dots"></span><b>€42</b></article>
+      </div>
+      <div class="menu" data-panel="beauty">
+        <article class="menu__item"><div><h3>Brow Shaping</h3><p>Wax or thread, finished to suit your face</p></div><span class="menu__dots"></span><b>€10</b></article>
+        <article class="menu__item"><div><h3>Brow Lamination</h3><p>Fuller, brushed-up brows for weeks</p></div><span class="menu__dots"></span><b>€30</b></article>
+        <article class="menu__item"><div><h3>Lash Lift &amp; Tint</h3><p>Natural curl and depth, no extensions</p></div><span class="menu__dots"></span><b>€35</b></article>
+        <article class="menu__item"><div><h3>Waxing</h3><p>Face &amp; body — ask for the full list</p></div><span class="menu__dots"></span><b>from €8</b></article>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="section gallery" id="gallery">
+      <div class="section__head">
+        <p class="eyebrow reveal">02 — Inspiration</p>
+        <h2 class="section__title split">Find your <em>shade</em></h2>
+        <p class="section__lead reveal">Hover a nail to see it shine. Bring a picture, or let us design something just for you.</p>
+      </div>
+
+      <div class="nails">
+        <figure class="nail reveal" style="--d:0"><div class="nail__tip nail--french"></div><figcaption>Classic French</figcaption></figure>
+        <figure class="nail reveal" style="--d:1"><div class="nail__tip nail--chrome"></div><figcaption>Pearl Chrome</figcaption></figure>
+        <figure class="nail reveal" style="--d:2"><div class="nail__tip nail--ombre"></div><figcaption>Baby Boomer</figcaption></figure>
+        <figure class="nail reveal" style="--d:3"><div class="nail__tip nail--red"></div><figcaption>Cherry Gloss</figcaption></figure>
+        <figure class="nail reveal" style="--d:4"><div class="nail__tip nail--marble"></div><figcaption>Marble</figcaption></figure>
+        <figure class="nail reveal" style="--d:5"><div class="nail__tip nail--black"></div><figcaption>Midnight</figcaption></figure>
+        <figure class="nail reveal" style="--d:6"><div class="nail__tip nail--glitter"></div><figcaption>Champagne Glitter</figcaption></figure>
+        <figure class="nail reveal" style="--d:7"><div class="nail__tip nail--nude"></div><figcaption>Soft Nude</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="section about" id="about">
+      <div class="about__visual reveal">
+        <div class="about__frame">
+          <svg class="logo-anim logo-anim--scroll" viewBox="0 0 760 250" aria-hidden="true"><use href="#logo" /></svg>
+        </div>
+        <span class="about__ring" aria-hidden="true"></span>
+      </div>
+      <div class="about__text">
+        <p class="eyebrow reveal">03 — The studio</p>
+        <h2 class="section__title split">Clean lines. <em>Careful</em> hands.</h2>
+        <p class="reveal">At MAG Nails &amp; Beauty Shop we believe great nails are about the details: the perfect shape, a clean cuticle line and colour that lasts. Every appointment starts with a consultation, so you leave with exactly what you came for.</p>
+        <ul class="features">
+          <li class="reveal" style="--d:0"><span>✦</span>Sterilised tools for every client</li>
+          <li class="reveal" style="--d:1"><span>✦</span>Premium gel &amp; polish brands</li>
+          <li class="reveal" style="--d:2"><span>✦</span>Custom nail art on request</li>
+          <li class="reveal" style="--d:3"><span>✦</span>Relaxed, friendly atmosphere</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="section process">
+      <div class="section__head">
+        <p class="eyebrow reveal">04 — Your visit</p>
+        <h2 class="section__title split">How it works</h2>
+      </div>
+      <div class="steps">
+        <div class="steps__line" aria-hidden="true"><span></span></div>
+        <div class="step reveal" style="--d:0"><b>1</b><h3>Book</h3><p>Choose a service and a time that suits you.</p></div>
+        <div class="step reveal" style="--d:1"><b>2</b><h3>Consult</h3><p>We talk shape, length and colour together.</p></div>
+        <div class="step reveal" style="--d:2"><b>3</b><h3>Relax</h3><p>Sit back while we take care of the details.</p></div>
+        <div class="step reveal" style="--d:3"><b>4</b><h3>Shine</h3><p>Leave with nails you can't stop looking at.</p></div>
+      </div>
+    </section>
+
+    <!-- Booking -->
+    <section class="section book" id="book">
+      <div class="book__card reveal">
+        <div class="book__intro">
+          <p class="eyebrow">05 — Appointments</p>
+          <h2 class="section__title split">Book your <em>moment</em></h2>
+          <p>Send us your request and we'll confirm your appointment as soon as possible. Prefer to talk? Call or message us.</p>
+          <a class="book__phone" data-config="phone" href="#">—</a>
+        </div>
+        <form class="form" novalidate>
+          <div class="field"><input id="f-name" name="name" required placeholder=" " /><label for="f-name">Your name</label></div>
+          <div class="field"><input id="f-phone" name="phone" type="tel" required placeholder=" " /><label for="f-phone">Phone</label></div>
+          <div class="field field--select">
+            <select id="f-service" name="service" required>
+              <option value="" disabled selected></option>
+              <option>Manicure</option><option>Gel Polish</option><option>Builder Gel / BIAB</option>
+              <option>Acrylic</option><option>Nail Art</option><option>Pedicure</option>
+              <option>Brows &amp; Lashes</option><option>Other</option>
+            </select>
+            <label for="f-service">Service</label>
+          </div>
+          <div class="field"><input id="f-date" name="date" type="date" required placeholder=" " /><label for="f-date" class="is-fixed">Preferred date</label></div>
+          <div class="field field--full"><textarea id="f-notes" name="notes" rows="3" placeholder=" "></textarea><label for="f-notes">Notes (optional)</label></div>
+          <button class="btn btn--full magnetic" type="submit"><span>Request appointment</span></button>
+          <p class="form__status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- Visit -->
+    <section class="section visit" id="visit">
+      <div class="section__head">
+        <p class="eyebrow reveal">06 — Find us</p>
+        <h2 class="section__title split">Come say hello</h2>
+      </div>
+      <div class="visit__grid">
+        <div class="visit__block reveal" style="--d:0">
+          <h3>Address</h3>
+          <p data-config="address">—</p>
+        </div>
+        <div class="visit__block reveal" style="--d:1">
+          <h3>Opening hours</h3>
+          <ul class="hours" data-config="hours"></ul>
+        </div>
+        <div class="visit__block reveal" style="--d:2">
+          <h3>Contact</h3>
+          <p><a data-config="phone" href="#">—</a><br /><a data-config="email" href="#">—</a><br /><a data-config="instagram" href="#" target="_blank" rel="noopener">Instagram</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <svg class="footer__logo" viewBox="0 0 760 250" aria-hidden="true"><use href="#logo" /></svg>
+    <p>© <span id="year"></span> MAG Nails &amp; Beauty Shop</p>
+    <a href="#top" class="footer__top magnetic" aria-label="Back to top">↑</a>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
