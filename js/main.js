@@ -89,10 +89,10 @@ const BROWS = [
 /* ---- Lashes & brow care: lash lift, tint, brow lamination (files in assets/lashes, some in assets/brows)
    tags: "ba" = before & after, "lift" = lash lift, "lam" = brow lamination ---- */
 const LASHES = [
+  { img: "assets/lashes/p04.jpg", w: 1772, h: 1000, wide: true, tags: ["ba", "lift", "lam"], alt: "Lash lift and brow lamination, before and after" },
   { img: "assets/lashes/p02.jpg", w: 1000, h: 1000, tags: ["ba", "lift"], alt: "Lash lift, before and after" },
   { img: "assets/lashes/p01.jpg", w: 1000, h: 1334, tags: ["lift"], alt: "Lifted natural lashes, close-up" },
   { img: "assets/lashes/p03.jpg", w: 1000, h: 1000, tags: ["ba", "lift"], alt: "Lash lift and tint, before and after" },
-  { img: "assets/brows/b11.jpg", w: 1000, h: 1772, tags: ["ba", "lift", "lam"], alt: "Lash lift and brow lamination, before and after" },
   { video: "assets/lashes/w01.mp4", poster: "assets/lashes/w01.jpg", w: 720, h: 1280, tags: ["lift"], alt: "Lifted lashes on blue eyes" },
   { img: "assets/brows/b10.jpg", w: 1000, h: 1000, tags: ["ba", "lift", "lam"], alt: "Brow lamination and lash lift, before and after" },
   { img: "assets/brows/b02.jpg", w: 1000, h: 1248, tags: ["ba", "lift"], alt: "Lash lift, brow shaping and tint, before and after" },
@@ -226,12 +226,14 @@ const LIPS = [
       colCount = n;
       const cols = Array.from({ length: n }, () => { const c = document.createElement("div"); c.className = "works__col"; return c; });
       const heights = new Array(n).fill(0);
+      const wide = []; // landscape items marked `wide` get a full-width row above the columns
       shown.forEach(i => {
+        if (list[i].wide) { items[i].classList.add("work--wide"); wide.push(items[i]); return; }
         const k = heights.indexOf(Math.min(...heights));
         cols[k].appendChild(items[i]);
         heights[k] += list[i].h / list[i].w;
       });
-      root.replaceChildren(...cols);
+      root.replaceChildren(...wide, ...cols);
     };
     layout();
     addEventListener("resize", () => layout());
