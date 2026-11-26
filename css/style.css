@@ -345,7 +345,7 @@ em { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: v
 @keyframes sparkle { to { background-position: 14px 14px, -10px 10px, 0 0; } }
 
 /* ---------- About ---------- */
-.about { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 8vw, 120px); align-items: center; max-width: 1200px; margin: 0 auto; }
+.about { overflow-x: clip; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 8vw, 120px); align-items: center; max-width: 1200px; margin: 0 auto; }
 @media (max-width: 860px) { .about { grid-template-columns: 1fr; } }
 .about__visual { position: relative; }
 .about__frame {
@@ -391,6 +391,65 @@ em { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: v
   .steps__line { top: 0; bottom: 0; left: 50%; right: auto; width: 1px; height: auto; }
   .steps__line span { transform-origin: top; transform: scaleY(var(--p, 0)); }
   .step { background: var(--ink); padding: 8px 0; }
+}
+
+/* ---------- Reviews ---------- */
+.reviews { overflow: hidden; }
+.ratings { display: flex; flex-wrap: wrap; justify-content: center; gap: 22px; margin: 0 auto clamp(40px, 6vw, 64px); }
+.rating {
+  display: grid; justify-items: center; gap: 4px; min-width: 220px; padding: 26px 40px;
+  background: #fff; border: 1px solid var(--line);
+  transition: border-color .4s, transform .5s var(--ease), opacity 1s var(--ease);
+}
+a.rating:hover { border-color: var(--ink); transform: translateY(-5px); }
+.rating__src { font-size: 11px; font-weight: 500; letter-spacing: .3em; text-transform: uppercase; color: var(--rose); }
+.rating__score { font-family: var(--f-serif); font-size: 56px; line-height: 1; }
+.rating__score small { font-size: 22px; color: var(--ink-soft); }
+.rating__stars { color: #d1a04a; letter-spacing: 4px; font-size: 16px; }
+.rating__count { font-size: 13px; color: var(--ink-soft); }
+.rating__count b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+@media (max-width: 560px) {
+  .ratings { flex-wrap: nowrap; gap: 12px; }
+  .rating { flex: 1 1 0; min-width: 0; padding: 20px 10px; }
+  .rating__score { font-size: 44px; }
+  .rating__src { letter-spacing: .2em; }
+}
+
+.rv-rows {
+  display: grid; gap: 22px; margin: 0 calc(-1 * var(--gutter));
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.rv-row { overflow: hidden; padding: 10px 0 18px; }
+.rv-track { display: flex; width: max-content; animation: rvScroll var(--dur, 120s) linear infinite; }
+.rv-row--rev .rv-track { animation-direction: reverse; }
+.rv-row:hover .rv-track { animation-play-state: paused; }
+.rv-group { display: flex; gap: 22px; padding-right: 22px; }
+@keyframes rvScroll { to { transform: translateX(-50%); } }
+.rv {
+  flex: none; width: 340px; margin: 0; padding: 26px;
+  display: flex; flex-direction: column; gap: 16px;
+  background: #fff; border: 1px solid var(--line);
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease), border-color .4s;
+}
+.rv:hover { transform: translateY(-6px); border-color: transparent; box-shadow: 0 30px 50px -30px rgba(22,22,22,.4); }
+@media (max-width: 560px) { .rv { width: 280px; padding: 22px; } }
+.rv__top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.rv__stars { color: #d1a04a; letter-spacing: 2px; font-size: 14px; }
+.rv__src { padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; background: var(--paper-2); }
+.rv__src--treatwell { background: var(--blush); }
+.rv__text {
+  flex: 1; margin: 0; font-size: 15px; line-height: 1.65;
+  display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden;
+}
+.rv__name { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 500; }
+.rv__avatar {
+  display: grid; place-items: center; width: 34px; height: 34px; flex: none; border-radius: 50%;
+  background: var(--ink); color: var(--paper); font-size: 14px; font-weight: 500;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rv-row { overflow-x: auto; }
+  .rv-group[aria-hidden] { display: none; }
 }
 
 /* ---------- Booking ---------- */

@@ -22,6 +22,31 @@ const CONFIG = {
   ],
 };
 
+/* ---- Client reviews (copied from Google & Treatwell) ---- */
+const REVIEWS = [
+  { name: "Florans Hadzhieva", src: "Google", text: "I want to express how happy I am about my experience with this studio. It has been almost 1.5 months later since I did my gellac manicure and the nails just …" },
+  { name: "Treatwell reviewer", src: "Treatwell", text: "Εξαιρετική η Εμιλυ ! Δεν έχω να προσθέσω κάτι , τελειοποιεί και την παραμικρή λεπτομέρεια ! Πολύ ευγενικό κορίτσι επίσης" },
+  { name: "Rebeka Elekes", src: "Google", text: "Really happy with my nails, the quality is always so good and they last really well. The girls working there are so lovely and friendly, and they always make …" },
+  { name: "Treatwell reviewer", src: "Treatwell", text: "Είχε χαλάσει ένα νύχι μου απ την Αθήνα που είχα πάει και μου το έφτιαξαν πολύ καλά" },
+  { name: "Gabriella Somi", src: "Google", text: "Absolutely amazing staff! They are neat and super service oriented. Without a doubt the best pedicure I've ever had...The owner served me coffee and water and is so nice!…" },
+  { name: "Treatwell reviewer", src: "Treatwell", text: "Όπως κάθε φορά το αποτέλεσμα ήταν άριστο !Η Ιρίνα είναι καταπληκτική 💕💕" },
+  { name: "Eva Tzitzou", src: "Google", text: "Το μαγαζί είναι πραγματικά top! Έκανα manicure με gel σε μεσαίου μήκους νύχια, pedicure και σχήμα φρυδιών σε ένα …" },
+  { name: "Anek", src: "Google", text: "Great service and amazing staff! 🥰 I’ve got exactly what I imagined! Thank you Emily for such a great job! Very talented 🌸 I will come back again for sure 🤗" },
+  { name: "Christiana Kourtali", src: "Google", text: "Οι κοπέλες ευγενέστατες, τέλεια ατμόσφαιρα. Το καλύτερο Lash lift με διαφορά, τα νύχια ακόμη και σε πολύ κοντό τέλεια. Όλα θετικά γι’αυτο το μαγαζί. Θα το ξανά π…" },
+  { name: "Treatwell reviewer", src: "Treatwell", text: "Όλα τέλεια" },
+  { name: "Γεωργιαννα Διακοπαναγιωτη", src: "Google", text: "Υπέροχη δουλειά,εξυπηρετικές όλες οι κοπέλες και εδιαθετες με υπέροχο και γαλήνιο κλίμα!!!! 🙏🏼Αξίζειι να πάτε,δεν θα το κετανιώσετε" },
+  { name: "Polina Strati", src: "Google", text: "Τα κοριτσια είναι επαγγελματίες και γνωρίζουν πολύ καλά το αντικείμενό τους. Πολύ καθαρό και καλαίσθητο, όλα τα μέτρα τη…" },
+  { name: "Thalia Xatzistrati", src: "Google", text: "Πολύ όμορφος και καθαρός χώρος! Η κοπέλα ήταν εξαιρετική, πολύ ευγενική και προσεκτική στη δουλειά της, με …" },
+  { name: "fani pokkia", src: "Google", text: "Καλή δουλειά και ευχάριστο περιβάλλον!…" },
+  { name: "Svetlana M.", src: "Google", text: "I recently visited this salon for a French manicure and pedicure, and it was the best experience I've ever had! ❤❤❤❤The quality of both the manicure and …" },
+  { name: "Popi Pampali", src: "Google", text: "Εξαιρετική εμπειρία! Ο χώρος είναι καθαρός, προσεγμένος και πολύ φιλόξενος. Η εξυπηρέτηση άψογη και το αποτέλεσμα στα νύχια μου πραγματικά εντυπωσιακό – μεγάλη …" },
+  { name: "4aHoliday Ltd", src: "Google", text: "⭐️⭐️⭐️⭐️⭐️" },
+  { name: "Ivelina Beneva", src: "Google", text: "Adorable, cozy, friendly nails salon with the most calmly and relaxed atmosphere ever. The owner Mariana and her staff treated me as a princess and I really enjoyed the time …" },
+  { name: "Kristian Dimitrov", src: "Google", text: "⭐️⭐️⭐️⭐️⭐️" },
+  { name: "Frida Lindström", src: "Google", text: "Been trying several different places around Rhodes but this is definitely the best one! …" },
+  { name: "Zoi Parsalidou", src: "Google", text: "⭐️⭐️⭐️⭐️⭐️" },
+];
+
 (() => {
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -37,6 +62,34 @@ const CONFIG = {
   $$('[data-config="whatsapp"]').forEach(a => { a.href = `https://wa.me/${CONFIG.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent("Hello!")}`; });
   $$('[data-config="address"]').forEach(p => { p.innerHTML = CONFIG.address; });
   $("#year").textContent = new Date().getFullYear();
+
+  /* ---------- Reviews: two rows of cards scrolling in opposite directions ---------- */
+  const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const card = r => `
+    <figure class="rv">
+      <div class="rv__top"><span class="rv__stars" aria-label="5 out of 5 stars">★★★★★</span><span class="rv__src rv__src--${r.src.toLowerCase()}">${r.src}</span></div>
+      <blockquote class="rv__text">${esc(r.text)}</blockquote>
+      <figcaption class="rv__name"><span class="rv__avatar" aria-hidden="true">${esc([...r.name][0].toUpperCase())}</span>${esc(r.name)}</figcaption>
+    </figure>`;
+  $$(".rv-track").forEach((track, row) => {
+    const items = REVIEWS.filter((_, i) => i % 2 === row).map(card).join("");
+    // second copy makes the loop seamless; hidden from screen readers
+    track.innerHTML = `<div class="rv-group">${items}</div><div class="rv-group" aria-hidden="true">${items}</div>`;
+    track.style.setProperty("--dur", `${REVIEWS.length * 6}s`);
+  });
+  const countIO = new IntersectionObserver(entries => entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    countIO.unobserve(e.target);
+    const b = $("[data-count]", e.target), end = +b.dataset.count, t0 = performance.now();
+    if (reduceMotion) return;
+    const tick = t => {
+      const k = Math.min(1, (t - t0) / 1800);
+      b.textContent = Math.round(end * (1 - Math.pow(1 - k, 3)));
+      if (k < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }), { threshold: 0.6 });
+  $$(".rating").forEach(el => countIO.observe(el));
 
   /* ---------- Live opening hours ---------- */
   const toMin = t => { const [h, m] = t.split(":").map(Number); return h * 60 + m; };
