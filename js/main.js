@@ -79,14 +79,29 @@ const CONFIG = {
     setTimeout(() => {
       loader.classList.add("is-done");
       document.body.classList.remove("is-loading");
-      document.body.classList.add("is-ready");
-      $(".hero__logo").classList.add("is-drawn");
+      document.body.classList.add("is-loaded");
+      introIO.observe(intro);
       setTimeout(() => loader.remove(), 1300);
     }, wait);
   };
+
+  /* ---------- Hero video ---------- */
+  const video = $(".video-hero__video");
+  if (reduceMotion) { video.autoplay = false; video.pause(); }
+  else video.play().catch(() => {}); // some browsers need a nudge even when muted
+
+  /* ---------- Intro (logo + headline) plays when scrolled into view ---------- */
+  const intro = $(".hero");
+  const introIO = new IntersectionObserver(([e]) => {
+    if (!e.isIntersecting) return;
+    intro.classList.add("is-ready");
+    $(".hero__logo").classList.add("is-drawn");
+    introIO.disconnect();
+  }, { threshold: 0.3 });
+
   if (document.readyState === "complete") finishLoading();
   else window.addEventListener("load", finishLoading);
-  setTimeout(() => !document.body.classList.contains("is-ready") && finishLoading(), 5000); // safety
+  setTimeout(() => !document.body.classList.contains("is-loaded") && finishLoading(), 5000); // safety
 
   /* ---------- Reveal on scroll ---------- */
   const io = new IntersectionObserver(entries => {
@@ -148,6 +163,7 @@ const CONFIG = {
   /* ---------- Scroll-driven effects ---------- */
   const progress = $(".scroll-progress");
   const blobs = $$(".blob");
+  const videoHero = $(".video-hero");
   const steps = $(".steps");
   const stepLine = $(".steps__line");
   const stepItems = $$(".step");
@@ -159,10 +175,12 @@ const CONFIG = {
     progress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
 
     nav.classList.toggle("is-scrolled", y > 40);
-    if (!nav.classList.contains("is-open")) nav.classList.toggle("is-hidden", y > lastY && y > 400);
+    // keep the nav off the video; after it, hide on scroll down and show on scroll up
+    const vh = videoHero.offsetHeight;
+    if (!nav.classList.contains("is-open")) nav.classList.toggle("is-hidden", y < vh - 80 || (y > lastY && y > vh + 400));
     lastY = y;
 
-    if (!reduceMotion) blobs.forEach(b => b.style.transform = `translate3d(0, ${y * b.dataset.depth}px, 0)`);
+    if (!reduceMotion) blobs.forEach(b => b.style.transform = `translate3d(0, ${(y - intro.offsetTop) * b.dataset.depth}px, 0)`);
 
     // process line fills as you scroll through it
     const r = steps.getBoundingClientRect();

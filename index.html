@@ -55,7 +55,15 @@
   </header>
 
   <main id="top">
-    <!-- Hero -->
+    <!-- Video hero: full-screen salon video, nothing on top of it -->
+    <section class="video-hero" aria-label="A look inside the MAG Nails studio">
+      <video class="video-hero__video" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg">
+        <source src="assets/hero-mobile.mp4" type="video/mp4" media="(max-width: 900px)" />
+        <source src="assets/hero.mp4" type="video/mp4" />
+      </video>
+    </section>
+
+    <!-- Intro -->
     <section class="hero">
       <div class="hero__blobs" aria-hidden="true">
         <span class="blob blob--1" data-depth="0.4"></span>
@@ -83,8 +91,6 @@
         </svg>
         <span class="badge__dot">✦</span>
       </a>
-
-      <div class="hero__scroll" aria-hidden="true"><span></span></div>
     </section>
 
     <!-- Marquee -->
