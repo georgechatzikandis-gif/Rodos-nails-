@@ -779,3 +779,19 @@ a.rating:hover { border-color: var(--ink); transform: translateY(-5px); }
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; transition-delay: 0s !important; animation-delay: 0s !important; }
   html { scroll-behavior: auto; }
 }
+
+/* ---------- Section background photos / video (soft, with parallax) ---------- */
+.has-bg { position: relative; isolation: isolate; overflow: hidden; }
+.sec-bg { position: absolute; inset: 0; z-index: -2; pointer-events: none; }
+.sec-bg img, .sec-bg video {
+  position: absolute; left: 0; top: -12%; width: 100%; height: 124%; object-fit: cover;
+  transform: translate3d(0, var(--py, 0px), 0); will-change: transform;
+}
+.sec-bg::after { /* light veil keeps the text easy to read */
+  content: ""; position: absolute; inset: 0; background: rgba(250,247,244,.84);
+}
+.has-bg--dark .sec-bg::after { background: rgba(22,22,22,.8); }
+.services.has-bg .sec-bg::after { background: linear-gradient(rgba(250,247,244,.8), rgba(250,247,244,.92)); }
+.reviews.has-bg .sec-bg::after { background: rgba(250,247,244,.8); }
+.hero.has-bg .hero__blobs { z-index: -1; }
+.hero.has-bg .sec-bg::after { background: rgba(250,247,244,.8); }

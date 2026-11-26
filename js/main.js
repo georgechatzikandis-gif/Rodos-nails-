@@ -276,6 +276,25 @@ const LIPS = [
     }, { threshold: 0.3 }).observe(video);
   });
 
+  /* ---------- Section backgrounds: slow parallax + play video only on screen ---------- */
+  const bgSections = $$(".has-bg");
+  const updateBgs = () => {
+    if (reduceMotion) return;
+    bgSections.forEach(s => {
+      const r = s.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      const p = (r.top + r.height / 2 - innerHeight / 2) / (innerHeight + r.height); // -0.5 … 0.5
+      s.style.setProperty("--py", (p * -0.2 * r.height).toFixed(1) + "px");
+    });
+  };
+  addEventListener("scroll", () => requestAnimationFrame(updateBgs), { passive: true });
+  addEventListener("resize", updateBgs);
+  updateBgs();
+  $$(".sec-bg video").forEach(v => new IntersectionObserver(([e]) => {
+    if (e.isIntersecting && !reduceMotion) v.play().catch(() => {});
+    else v.pause();
+  }, { threshold: 0.05 }).observe(v));
+
   /* ---------- Before / after slider (pedicure) ---------- */
   $$(".ba").forEach(ba => {
     const range = $(".ba__range", ba);
