@@ -274,6 +274,45 @@ const LIPS = [
     }, { threshold: 0.3 }).observe(video);
   });
 
+  /* ---------- Before / after slider (pedicure) ---------- */
+  $$(".ba").forEach(ba => {
+    const range = $(".ba__range", ba);
+    const set = v => {
+      ba.style.setProperty("--pos", v + "%");
+      ba.dataset.side = v < 8 ? "after" : v > 92 ? "before" : "";
+    };
+    range.addEventListener("input", () => set(+range.value));
+    ["pointerdown", "touchstart"].forEach(t => range.addEventListener(t, () => ba.classList.add("is-dragging"), { passive: true }));
+    ["pointerup", "pointercancel", "touchend", "blur"].forEach(t => range.addEventListener(t, () => ba.classList.remove("is-dragging")));
+    // tapping anywhere jumps the bar there (range inputs ignore taps on some phones)
+    ba.addEventListener("click", e => {
+      const r = ba.getBoundingClientRect();
+      const v = Math.max(0, Math.min(100, ((e.clientX - r.left) / r.width) * 100));
+      range.value = v; set(v);
+    });
+    // when it first appears, sweep the bar once so people see it can move
+    if (!reduceMotion) {
+      new IntersectionObserver(([e], obs) => {
+        if (!e.isIntersecting) return;
+        obs.disconnect();
+        const keys = [[0, 50], [700, 18], [1500, 82], [2200, 50]];
+        let t0 = 0;
+        const step = t => {
+          if (ba.classList.contains("is-dragging")) return;
+          const dt = t - t0;
+          let i = keys.findIndex(k => k[0] > dt);
+          if (i === -1) { range.value = 50; set(50); return; }
+          const [ta, va] = keys[i - 1], [tb, vb] = keys[i];
+          const k = (dt - ta) / (tb - ta), ease = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+          const v = va + (vb - va) * ease;
+          range.value = v; set(v);
+          requestAnimationFrame(step);
+        };
+        setTimeout(() => { t0 = performance.now(); requestAnimationFrame(step); }, 400);
+      }, { threshold: 0.6 }).observe(ba);
+    }
+  });
+
   /* ---------- Live opening hours ---------- */
   const toMin = t => { const [h, m] = t.split(":").map(Number); return h * 60 + m; };
   const fmtDur = m => {

@@ -49,6 +49,7 @@
     <nav class="nav__links" id="menu">
       <a href="#services">Services</a>
       <a href="#gallery">Gallery</a>
+      <a href="#pedicure">Pedicure</a>
       <a href="#brows">Brows</a>
       <a href="#lashes">Lashes</a>
       <a href="#lips">Lips</a>
@@ -159,10 +160,35 @@
       <div class="works"></div>
     </section>
 
+    <!-- Pedicure: draggable before / after comparison -->
+    <section class="section pedicure" id="pedicure">
+      <div class="section__head">
+        <p class="eyebrow reveal">03 — Pedicure</p>
+        <h2 class="section__title split">Step out <em>smooth</em></h2>
+      </div>
+      <div class="brows__feature pedicure__feature">
+        <div class="brows__text">
+          <p class="eyebrow reveal">Before &amp; after</p>
+          <h3 class="brows__title reveal">From dry, cracked heels to soft, healthy feet</h3>
+          <p class="reveal">Our pedicure takes care of the whole foot: dry skin and cracked heels are gently removed, the skin is smoothed and hydrated, and your nails are shaped and finished with your favourite colour.</p>
+          <p class="pedicure__hint reveal"><span aria-hidden="true">⟷</span> Drag the bar on the photo to see the difference</p>
+          <a class="btn magnetic reveal" data-config="treatwell" href="#" target="_blank" rel="noopener">Book on Treatwell</a>
+        </div>
+        <div class="ba reveal" style="--pos: 50%">
+          <img class="ba__img" src="assets/pedicure/after.jpg" alt="After pedicure: smooth, healthy heels" width="900" height="1346" loading="lazy" decoding="async" />
+          <img class="ba__img ba__img--before" src="assets/pedicure/before.jpg" alt="Before pedicure: dry, cracked heels" width="900" height="1346" loading="lazy" decoding="async" />
+          <span class="ba__label ba__label--before" aria-hidden="true">Before</span>
+          <span class="ba__label ba__label--after" aria-hidden="true">After</span>
+          <span class="ba__line" aria-hidden="true"><span class="ba__knob">‹ ›</span></span>
+          <input class="ba__range" type="range" min="0" max="100" value="50" step="0.1" aria-label="Compare before and after: slide left to see more of the result" />
+        </div>
+      </div>
+    </section>
+
     <!-- Brows & lashes: feature video + filterable results (filled from BROWS in js/main.js) -->
     <section class="section brows pmu" id="brows" data-list="brows">
       <div class="section__head">
-        <p class="eyebrow reveal">03 — Brows</p>
+        <p class="eyebrow reveal">04 — Brows</p>
         <h2 class="section__title split">Brows, <em>designed</em> for you</h2>
       </div>
 
@@ -195,7 +221,7 @@
     <!-- Lashes & brow care: lash lift, tint, brow lamination (filled from LASHES in js/main.js) -->
     <section class="section brows lashes pmu" id="lashes" data-list="lashes">
       <div class="section__head">
-        <p class="eyebrow reveal">04 — Lashes</p>
+        <p class="eyebrow reveal">05 — Lashes</p>
         <h2 class="section__title split">Lashes that <em>lift</em> you</h2>
       </div>
 
@@ -230,7 +256,7 @@
     <!-- Lips: semi-permanent lip make-up (filled from LIPS in js/main.js) -->
     <section class="section brows lips pmu" id="lips" data-list="lips">
       <div class="section__head">
-        <p class="eyebrow reveal">05 — Lips</p>
+        <p class="eyebrow reveal">06 — Lips</p>
         <h2 class="section__title split">Lips, <em>softly</em> defined</h2>
       </div>
 
@@ -280,7 +306,7 @@
         <span class="about__ring" aria-hidden="true"></span>
       </div>
       <div class="about__text">
-        <p class="eyebrow reveal">06 — The studio</p>
+        <p class="eyebrow reveal">07 — The studio</p>
         <h2 class="section__title split">Clean lines. <em>Careful</em> hands.</h2>
         <p class="reveal">At MAG Nails &amp; Beauty Shop we believe great nails are about the details: the perfect shape, a clean cuticle line and colour that lasts. Every appointment starts with a consultation, so you leave with exactly what you came for.</p>
         <ul class="features">
@@ -295,7 +321,7 @@
     <!-- Process -->
     <section class="section process">
       <div class="section__head">
-        <p class="eyebrow reveal">07 — Your visit</p>
+        <p class="eyebrow reveal">08 — Your visit</p>
         <h2 class="section__title split">How it works</h2>
       </div>
       <div class="steps">
@@ -310,7 +336,7 @@
     <!-- Reviews (filled from REVIEWS in js/main.js) -->
     <section class="section reviews" id="reviews">
       <div class="section__head">
-        <p class="eyebrow reveal">08 — Reviews</p>
+        <p class="eyebrow reveal">09 — Reviews</p>
         <h2 class="section__title split">Loved by our <em>clients</em></h2>
       </div>
       <div class="ratings">
@@ -337,7 +363,7 @@
     <section class="section book" id="book">
       <div class="book__card reveal">
         <div class="book__intro">
-          <p class="eyebrow">09 — Appointments</p>
+          <p class="eyebrow">10 — Appointments</p>
           <h2 class="section__title split">Book your <em>moment</em></h2>
           <p>All appointments are booked online through Treatwell. Choose your service, see the available times and book in a few taps, day or night.</p>
         </div>
@@ -357,7 +383,7 @@
     <!-- Opening hours (live) -->
     <section class="section opening" id="hours">
       <div class="section__head">
-        <p class="eyebrow reveal">10 — Opening hours</p>
+        <p class="eyebrow reveal">11 — Opening hours</p>
         <h2 class="section__title split">When to <em>find us</em></h2>
       </div>
       <div class="opening__grid">
@@ -383,7 +409,7 @@
     <!-- Visit -->
     <section class="section visit" id="visit">
       <div class="section__head">
-        <p class="eyebrow reveal">11 — Find us</p>
+        <p class="eyebrow reveal">12 — Find us</p>
         <h2 class="section__title split">Come say hello</h2>
       </div>
       <div class="visit__grid">
