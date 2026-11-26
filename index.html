@@ -60,12 +60,16 @@
   </header>
 
   <main id="top">
-    <!-- Video hero: full-screen salon video, nothing on top of it -->
+    <!-- Video hero: full-screen salon video with the logo on top -->
     <section class="video-hero" aria-label="A look inside the MAG Nails studio">
       <video class="video-hero__video" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg">
         <source src="assets/hero-mobile.mp4" type="video/mp4" media="(max-width: 900px)" />
         <source src="assets/hero.mp4" type="video/mp4" />
       </video>
+      <div class="video-hero__scrim" aria-hidden="true"></div>
+      <svg class="video-hero__logo logo-anim" viewBox="0 0 760 250" role="img" aria-label="MAG Nails &amp; Beauty Shop">
+        <use href="#logo" />
+      </svg>
     </section>
 
     <!-- Intro -->
@@ -78,9 +82,6 @@
 
       <div class="hero__inner">
         <p class="eyebrow hero__eyebrow">Nails · Beauty · Care</p>
-        <svg class="hero__logo logo-anim" viewBox="0 0 760 250" role="img" aria-label="MAG Nails &amp; Beauty Shop">
-          <use href="#logo" />
-        </svg>
         <h1 class="hero__title split">Details that <em>speak</em> for you.</h1>
         <p class="hero__sub">Precision manicures, flawless gel and hand-painted nail art in a calm, modern studio.</p>
         <div class="hero__cta">

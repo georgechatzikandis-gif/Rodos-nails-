@@ -208,6 +208,7 @@ const REVIEWS = [
       document.body.classList.remove("is-loading");
       document.body.classList.add("is-loaded");
       introIO.observe(intro);
+      setTimeout(() => $(".video-hero__logo").classList.add("is-drawn"), reduceMotion ? 0 : 500);
       setTimeout(() => loader.remove(), 1300);
     }, wait);
   };
@@ -222,7 +223,6 @@ const REVIEWS = [
   const introIO = new IntersectionObserver(([e]) => {
     if (!e.isIntersecting) return;
     intro.classList.add("is-ready");
-    $(".hero__logo").classList.add("is-drawn");
     introIO.disconnect();
   }, { threshold: 0.3 });
 
