@@ -5,7 +5,7 @@
 /* ---- EDIT YOUR SALON DETAILS HERE ----
    These are placeholders. Replace them with the real details. */
 const CONFIG = {
-  phone: "+30 000 000 0000",
+  phones: ["+30 22410 69344", "+30 6955 36 9825"], // landline, mobile
   email: "hello@example.com",          // booking requests are emailed here
   instagram: "https://instagram.com/", // full profile URL
   address: "Street &amp; number<br>Rhodes, Greece",
@@ -27,7 +27,7 @@ const CONFIG = {
   const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
 
   /* ---------- Fill contact details ---------- */
-  $$('[data-config="phone"]').forEach(a => { a.textContent = CONFIG.phone; a.href = "tel:" + CONFIG.phone.replace(/[^\d+]/g, ""); });
+  $$('[data-config="phones"]').forEach(el => { el.innerHTML = CONFIG.phones.map(n => `<a href="tel:${n.replace(/[^\d+]/g, "")}">${n}</a>`).join("<br>"); });
   $$('[data-config="email"]').forEach(a => { a.textContent = CONFIG.email; a.href = "mailto:" + CONFIG.email; });
   $$('[data-config="instagram"]').forEach(a => { a.href = CONFIG.instagram; });
   $$('[data-config="address"]').forEach(p => { p.innerHTML = CONFIG.address; });
