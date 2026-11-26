@@ -516,6 +516,16 @@ const LIPS = [
   const blobs = $$(".blob");
   const videoHero = $(".video-hero");
   const waFloat = $(".wa-float");
+  // floating contact button opens a small menu: WhatsApp or Treatwell
+  const fabToggle = $(".fab__toggle");
+  const setFab = open => {
+    waFloat.classList.toggle("is-open", open);
+    fabToggle.setAttribute("aria-expanded", open);
+  };
+  fabToggle.addEventListener("click", e => { e.stopPropagation(); setFab(!waFloat.classList.contains("is-open")); });
+  $$(".fab__item").forEach(a => a.addEventListener("click", () => setFab(false)));
+  document.addEventListener("click", e => { if (!waFloat.contains(e.target)) setFab(false); });
+  addEventListener("keydown", e => { if (e.key === "Escape" && waFloat.classList.contains("is-open")) { setFab(false); fabToggle.focus(); } });
   const bookCard = $(".book__card");
   const steps = $(".steps");
   const stepLine = $(".steps__line");
@@ -532,7 +542,9 @@ const LIPS = [
     const vh = videoHero.offsetHeight;
     if (!nav.classList.contains("is-open")) nav.classList.toggle("is-hidden", y < vh - 80 || (y > lastY && y > vh + 400));
     const fr = bookCard.getBoundingClientRect(); // keep the Treatwell button clear
-    waFloat.classList.toggle("is-visible", y > vh - 80 && !(fr.top < innerHeight && fr.bottom > 0));
+    const showFab = y > vh - 80 && !(fr.top < innerHeight && fr.bottom > 0);
+    waFloat.classList.toggle("is-visible", showFab);
+    if (!showFab) setFab(false);
     lastY = y;
 
     if (!reduceMotion) blobs.forEach(b => b.style.transform = `translate3d(0, ${(y - intro.offsetTop) * b.dataset.depth}px, 0)`);

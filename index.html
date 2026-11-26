@@ -445,9 +445,25 @@
     </section>
   </main>
 
-  <a class="wa-float" data-config="whatsapp" href="#" target="_blank" rel="noopener" aria-label="Message us on WhatsApp">
-    <svg viewBox="0 0 32 32" aria-hidden="true"><use href="#wa-icon" /></svg>
-  </a>
+  <!-- Floating contact button: opens a small menu (WhatsApp or Treatwell) -->
+  <div class="wa-float fab">
+    <div class="fab__menu" id="fab-menu" role="menu" aria-label="Contact and booking">
+      <a class="fab__item" role="menuitem" data-config="treatwell" href="#" target="_blank" rel="noopener" style="--i:1">
+        <span class="fab__label">Book on Treatwell</span>
+        <span class="fab__icon fab__icon--tw" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="m9 14.8 2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+      <a class="fab__item" role="menuitem" data-config="whatsapp" href="#" target="_blank" rel="noopener" style="--i:0">
+        <span class="fab__label">Message on WhatsApp</span>
+        <span class="fab__icon fab__icon--wa" aria-hidden="true"><svg viewBox="0 0 32 32"><use href="#wa-icon" /></svg></span>
+      </a>
+    </div>
+    <button class="fab__toggle" type="button" aria-expanded="false" aria-controls="fab-menu" aria-label="Contact us or book an appointment">
+      <svg class="fab__open" viewBox="0 0 32 32" aria-hidden="true"><use href="#wa-icon" /></svg>
+      <svg class="fab__close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
 
   <footer class="footer">
     <svg class="footer__logo" viewBox="0 0 760 250" aria-hidden="true"><use href="#logo" /></svg>
