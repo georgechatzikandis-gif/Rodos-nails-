@@ -131,6 +131,10 @@ const LIPS = [
   $$('[data-config="whatsapp"]').forEach(a => { a.href = `https://wa.me/${CONFIG.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent("Hello!")}`; });
   $$('[data-config="address"]').forEach(p => { p.innerHTML = CONFIG.address; });
   $("#year").textContent = new Date().getFullYear();
+  const todayIdx = (new Date().getDay() + 6) % 7;
+  $$('[data-config="hours-compact"]').forEach(ul => {
+    ul.innerHTML = CONFIG.hours.map(([d, h], i) => `<li class="${i === todayIdx ? "is-today" : ""}"><span>${d.slice(0, 3)}</span><span>${h ? h.join(" – ") : "Closed"}</span></li>`).join("");
+  });
 
   /* ---------- Reviews: two rows of cards scrolling in opposite directions ---------- */
   const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));

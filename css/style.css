@@ -494,8 +494,6 @@ em { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: v
 .btn--shop { flex: none; padding: 22px 40px; font-size: 13px; background: var(--paper); color: var(--ink); border-color: var(--paper); }
 .btn--shop:hover { color: var(--ink); }
 .btn--shop:hover .btn__arrow { transform: translateX(6px); }
-.footer__shop { font-size: 12px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; border-bottom: 1px solid var(--rose); padding-bottom: 4px; transition: color .3s; }
-.footer__shop:hover { color: var(--blush); }
 
 /* ---------- About ---------- */
 .about { overflow-x: clip; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 8vw, 120px); align-items: center; max-width: 1200px; margin: 0 auto; }
@@ -720,10 +718,30 @@ a.rating:hover { border-color: var(--ink); transform: translateY(-5px); }
 .visit__block a:hover { background-size: 100% 1px; }
 
 /* ---------- Footer ---------- */
-.footer { display: grid; justify-items: center; gap: 18px; padding: 70px var(--gutter) 40px; background: var(--ink); color: var(--paper); text-align: center; }
-.footer__logo { width: min(260px, 70vw); }
-.footer p { margin: 0; font-size: 12px; letter-spacing: .15em; text-transform: uppercase; opacity: .6; }
-.footer__top { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid rgba(255,255,255,.3); border-radius: 50%; transition: background .3s, color .3s; }
+.footer { position: relative; overflow: hidden; padding: 0 var(--gutter) 28px; background: var(--ink); color: var(--paper); }
+.footer::before { content: ""; position: absolute; width: 50vmax; height: 50vmax; left: -20vmax; bottom: -30vmax; border-radius: 50%; background: radial-gradient(circle, rgba(201,141,136,.22), transparent 65%); animation: float 20s ease-in-out infinite; pointer-events: none; }
+.footer__marquee { margin: 0 calc(-1 * var(--gutter)); padding: 34px 0; border-bottom: 1px solid rgba(255,255,255,.1); overflow: hidden; }
+.footer__marquee-track { display: flex; width: max-content; animation: marquee 40s linear infinite; }
+.footer__marquee span { font-family: var(--f-serif); font-style: italic; font-size: clamp(40px, 8vw, 110px); line-height: 1; white-space: nowrap; color: transparent; -webkit-text-stroke: 1px rgba(250,247,244,.35); }
+.footer__top-row { position: relative; display: grid; grid-template-columns: 1.6fr 1fr 1.2fr 1.2fr; gap: clamp(32px, 5vw, 70px); max-width: 1200px; margin: 0 auto; padding: clamp(50px, 7vw, 90px) 0 clamp(40px, 6vw, 70px); }
+@media (max-width: 960px) { .footer__top-row { grid-template-columns: 1fr 1fr; } .footer__brand { grid-column: 1 / -1; } }
+@media (max-width: 560px) { .footer__top-row { grid-template-columns: 1fr; } }
+.footer__logo { width: min(240px, 70vw); color: var(--paper); }
+.footer__tagline { max-width: 34ch; margin: 22px 0 26px; color: rgba(250,247,244,.7); font-size: 15px; }
+.footer__ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn--light { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.btn--outline-light { background: transparent; color: var(--paper); border-color: rgba(250,247,244,.45); }
+.btn--outline-light:hover, .btn--light:hover { color: var(--ink); }
+.footer__col h3 { margin: 0 0 20px; font-size: 11px; font-weight: 500; letter-spacing: .3em; text-transform: uppercase; color: var(--blush); }
+.footer__col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; font-size: 15px; line-height: 1.5; color: rgba(250,247,244,.82); }
+.footer__col a { background: linear-gradient(var(--blush) 0 0) left bottom / 0 1px no-repeat; transition: background-size .45s var(--ease), color .3s; }
+.footer__col a:hover { color: #fff; background-size: 100% 1px; }
+.footer__hours li { display: flex; justify-content: space-between; gap: 16px; font-variant-numeric: tabular-nums; }
+.footer__hours li span:first-child { color: rgba(250,247,244,.55); }
+.footer__hours li.is-today, .footer__hours li.is-today span { color: #fff; font-weight: 600; }
+.footer__bottom { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 20px; max-width: 1200px; margin: 0 auto; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.1); }
+.footer__bottom p { margin: 0; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; opacity: .55; }
+.footer__top { display: grid; place-items: center; width: 48px; height: 48px; flex: none; border: 1px solid rgba(255,255,255,.3); border-radius: 50%; transition: background .3s, color .3s; }
 .footer__top:hover { background: var(--paper); color: var(--ink); }
 
 /* ---------- WhatsApp ---------- */

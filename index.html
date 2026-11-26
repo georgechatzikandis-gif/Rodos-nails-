@@ -477,10 +477,53 @@
   </div>
 
   <footer class="footer">
-    <svg class="footer__logo" viewBox="0 0 760 250" aria-hidden="true"><use href="#logo" /></svg>
-    <a class="footer__shop" data-config="eshop" href="#" target="_blank" rel="noopener">Shop our products online ↗</a>
-    <p>© <span id="year"></span> MAG Nails &amp; Beauty Shop</p>
-    <a href="#top" class="footer__top magnetic" aria-label="Back to top">↑</a>
+    <div class="footer__marquee" aria-hidden="true">
+      <div class="footer__marquee-track"><span>Nails · Brows · Lashes · Lips · Pedicure ·&nbsp;</span><span>Nails · Brows · Lashes · Lips · Pedicure ·&nbsp;</span></div>
+    </div>
+
+    <div class="footer__top-row">
+      <div class="footer__brand reveal">
+        <svg class="footer__logo logo-anim logo-anim--scroll" viewBox="0 0 760 250" aria-hidden="true"><use href="#logo" /></svg>
+        <p class="footer__tagline">Nails, brows, lashes &amp; semi-permanent make-up in the heart of Rhodes.</p>
+        <div class="footer__ctas">
+          <a class="btn btn--light magnetic" data-config="treatwell" href="#" target="_blank" rel="noopener">Book online</a>
+          <a class="btn btn--outline-light magnetic" data-config="eshop" href="#" target="_blank" rel="noopener">Find our products</a>
+        </div>
+      </div>
+
+      <nav class="footer__col reveal" style="--d:1" aria-label="Footer">
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#gallery">Our work</a></li>
+          <li><a href="#pedicure">Pedicure</a></li>
+          <li><a href="#brows">Brows</a></li>
+          <li><a href="#lashes">Lashes</a></li>
+          <li><a href="#lips">Lips</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__col reveal" style="--d:2">
+        <h3>Visit &amp; contact</h3>
+        <ul>
+          <li><a href="https://www.google.com/maps/search/?api=1&amp;query=Alexandrou+Papadiamanti+4+Rhodes" target="_blank" rel="noopener" data-config="address"></a></li>
+          <li data-config="phones"></li>
+          <li><a data-config="whatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a data-config="instagram" href="#" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col reveal" style="--d:3">
+        <h3>Opening hours</h3>
+        <ul class="footer__hours" data-config="hours-compact"></ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>© <span id="year"></span> MAG Nails &amp; Beauty Shop · Rhodes</p>
+      <a href="#top" class="footer__top magnetic" aria-label="Back to top">↑</a>
+    </div>
   </footer>
 
   <script src="js/main.js"></script>
