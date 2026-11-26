@@ -49,6 +49,11 @@ const REVIEWS = [
 
 /* ---- Our work: photos and videos from the studio (files in assets/work) ---- */
 const WORK = [
+  { img: "assets/work/p07.jpg", w: 1000, h: 1776, alt: "Deep red cat-eye gel nails" },
+  { video: "assets/work/v10.mp4", poster: "assets/work/v10.jpg", w: 720, h: 1280, alt: "Soft pink short nails" },
+  { img: "assets/work/p09.jpg", w: 1000, h: 1776, alt: "Milky almond French manicure" },
+  { video: "assets/work/v11.mp4", poster: "assets/work/v11.jpg", w: 720, h: 1280, alt: "Burgundy almond nails" },
+  { img: "assets/work/p08.jpg", w: 1000, h: 1192, alt: "Red cat-eye nails on both hands" },
   { img: "assets/work/p01.jpg", w: 1000, h: 1086, alt: "Nude almond gel nails" },
   { video: "assets/work/v01.mp4", poster: "assets/work/v01.jpg", w: 720, h: 1280, alt: "Manicure in progress at the studio" },
   { img: "assets/work/p02.jpg", w: 1000, h: 1777, alt: "Hand-painted cartoon nail art" },
@@ -119,6 +124,25 @@ const WORK = [
         : `<img src="${w.img}" alt="" width="${w.w}" height="${w.h}" loading="lazy" decoding="async">`}
       <span class="work__zoom" aria-hidden="true">View +</span>
     </button>`).join("");
+
+  // masonry that keeps the list order row by row: each item goes into the shortest column
+  const workItems = $$(".work", worksEl);
+  let colCount = 0;
+  const layoutWorks = () => {
+    const n = innerWidth <= 560 ? 2 : innerWidth <= 900 ? 2 : 3;
+    if (n === colCount) return;
+    colCount = n;
+    const cols = Array.from({ length: n }, () => { const c = document.createElement("div"); c.className = "works__col"; return c; });
+    const heights = new Array(n).fill(0);
+    workItems.forEach((el, i) => {
+      const k = heights.indexOf(Math.min(...heights));
+      cols[k].appendChild(el);
+      heights[k] += WORK[i].h / WORK[i].w;
+    });
+    worksEl.replaceChildren(...cols);
+  };
+  layoutWorks();
+  addEventListener("resize", layoutWorks);
 
   // play grid videos only while they are on screen
   const vidIO = new IntersectionObserver(entries => entries.forEach(e => {

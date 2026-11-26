@@ -305,8 +305,9 @@ em { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: v
 
 /* ---------- Our work (photos + videos) ---------- */
 .gallery { background: var(--paper-2); }
-.works { columns: 3 280px; column-gap: 18px; max-width: 1200px; margin: 0 auto; }
-@media (max-width: 560px) { .works { columns: 2; column-gap: 10px; } }
+.works { display: flex; align-items: flex-start; gap: 18px; max-width: 1200px; margin: 0 auto; }
+.works__col { flex: 1; min-width: 0; }
+@media (max-width: 560px) { .works { gap: 10px; } }
 .work {
   position: relative; display: block; width: 100%; margin: 0 0 18px; padding: 0; border: 0;
   break-inside: avoid; overflow: hidden; background: var(--ink); cursor: zoom-in;
