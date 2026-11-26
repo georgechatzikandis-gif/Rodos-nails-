@@ -6,6 +6,7 @@
    These are placeholders. Replace them with the real details. */
 const CONFIG = {
   phones: ["+30 22410 69344", "+30 6955 36 9825"], // landline, mobile
+  whatsapp: "+30 6955 36 9825",
   email: "hello@example.com",          // booking requests are emailed here
   instagram: "https://instagram.com/", // full profile URL
   address: "Street &amp; number<br>Rhodes, Greece",
@@ -30,6 +31,8 @@ const CONFIG = {
   $$('[data-config="phones"]').forEach(el => { el.innerHTML = CONFIG.phones.map(n => `<a href="tel:${n.replace(/[^\d+]/g, "")}">${n}</a>`).join("<br>"); });
   $$('[data-config="email"]').forEach(a => { a.textContent = CONFIG.email; a.href = "mailto:" + CONFIG.email; });
   $$('[data-config="instagram"]').forEach(a => { a.href = CONFIG.instagram; });
+  const waLink = text => `https://wa.me/${CONFIG.whatsapp.replace(/\D/g, "")}` + (text ? `?text=${encodeURIComponent(text)}` : "");
+  $$('[data-config="whatsapp"]').forEach(a => { a.href = waLink("Hello! I'd like to book an appointment."); });
   $$('[data-config="address"]').forEach(p => { p.innerHTML = CONFIG.address; });
   const today = (new Date().getDay() + 6) % 7;
   $$('[data-config="hours"]').forEach(ul => {
@@ -164,6 +167,8 @@ const CONFIG = {
   const progress = $(".scroll-progress");
   const blobs = $$(".blob");
   const videoHero = $(".video-hero");
+  const waFloat = $(".wa-float");
+  const bookForm = $(".form");
   const steps = $(".steps");
   const stepLine = $(".steps__line");
   const stepItems = $$(".step");
@@ -178,6 +183,8 @@ const CONFIG = {
     // keep the nav off the video; after it, hide on scroll down and show on scroll up
     const vh = videoHero.offsetHeight;
     if (!nav.classList.contains("is-open")) nav.classList.toggle("is-hidden", y < vh - 80 || (y > lastY && y > vh + 400));
+    const fr = bookForm.getBoundingClientRect(); // the form has its own WhatsApp button
+    waFloat.classList.toggle("is-visible", y > vh - 80 && !(fr.top < innerHeight && fr.bottom > 0));
     lastY = y;
 
     if (!reduceMotion) blobs.forEach(b => b.style.transform = `translate3d(0, ${(y - intro.offsetTop) * b.dataset.depth}px, 0)`);
@@ -246,8 +253,13 @@ const CONFIG = {
 
     const d = Object.fromEntries(new FormData(form));
     const body = `Name: ${d.name}\nPhone: ${d.phone}\nService: ${d.service}\nPreferred date: ${d.date}\nNotes: ${d.notes || "-"}`;
-    location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent("Appointment request — " + d.service)}&body=${encodeURIComponent(body)}`;
-    status.textContent = "Thank you! Your email app will open so you can send the request.";
+    if ((e.submitter && e.submitter.dataset.via) === "email") {
+      location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent("Appointment request — " + d.service)}&body=${encodeURIComponent(body)}`;
+      status.textContent = "Thank you! Your email app will open so you can send the request.";
+    } else {
+      window.open(waLink("Hello! I'd like to book an appointment.\n\n" + body), "_blank", "noopener");
+      status.textContent = "Thank you! WhatsApp will open so you can send the request.";
+    }
     form.reset();
   });
   $$("input, select, textarea", form).forEach(f => f.addEventListener("input", () => f.closest(".field").classList.remove("is-invalid")));

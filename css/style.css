@@ -210,7 +210,7 @@ em { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: v
 }
 
 .badge {
-  position: absolute; right: var(--gutter); bottom: 60px; z-index: 2;
+  position: absolute; left: var(--gutter); bottom: 60px; z-index: 2;
   width: 120px; height: 120px; display: grid; place-items: center;
   opacity: 0; transform: scale(.6); transition: opacity 1s, transform 1s var(--ease);
 }
@@ -451,6 +451,33 @@ em { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: v
 .footer p { margin: 0; font-size: 12px; letter-spacing: .15em; text-transform: uppercase; opacity: .6; }
 .footer__top { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid rgba(255,255,255,.3); border-radius: 50%; transition: background .3s, color .3s; }
 .footer__top:hover { background: var(--paper); color: var(--ink); }
+
+/* ---------- WhatsApp ---------- */
+.btn svg { width: 20px; height: 20px; margin-right: 10px; flex: none; }
+.btn--wa { background: #1f9e55; border-color: #1f9e55; }
+.book__wa {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 18px;
+  font-size: 12px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: #1f9e55;
+}
+.book__wa svg { width: 22px; height: 22px; transition: transform .5s var(--ease); }
+.book__wa:hover svg { transform: rotate(-12deg) scale(1.15); }
+
+.wa-float {
+  position: fixed; right: 20px; bottom: 20px; z-index: 55;
+  display: grid; place-items: center; width: 58px; height: 58px; border-radius: 50%;
+  background: #25d366; color: #fff; box-shadow: 0 12px 30px -8px rgba(0,0,0,.35);
+  opacity: 0; transform: translateY(30px) scale(.6); pointer-events: none;
+  transition: opacity .5s, transform .6s var(--ease);
+}
+.wa-float.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+.wa-float svg { width: 30px; height: 30px; }
+.wa-float::before { /* soft pulse */
+  content: ""; position: absolute; inset: 0; border-radius: 50%; background: #25d366; z-index: -1;
+  animation: waPulse 2.4s ease-out infinite;
+}
+.wa-float:hover { transform: scale(1.08); }
+@keyframes waPulse { from { transform: scale(1); opacity: .5; } to { transform: scale(1.7); opacity: 0; } }
+.nav.is-open ~ .wa-float { opacity: 0; pointer-events: none; }
 
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {

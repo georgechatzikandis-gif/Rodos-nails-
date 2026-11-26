@@ -16,6 +16,10 @@
   <!-- Reusable logo -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
+      <symbol id="wa-icon" viewBox="0 0 32 32">
+        <path d="M16 3.5C9.1 3.5 3.5 8.9 3.5 15.6c0 2.4.7 4.6 2 6.5L4 28.5l6.6-1.7c1.6.8 3.5 1.3 5.4 1.3 6.9 0 12.5-5.4 12.5-12.1S22.9 3.5 16 3.5z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" />
+        <path d="M11.9 9.9c-.3-.6-.6-.6-.9-.6h-.8c-.3 0-.7.1-1 .5-.4.4-1.3 1.3-1.3 3.1s1.3 3.6 1.5 3.9c.2.2 2.6 4.1 6.4 5.6 3.2 1.2 3.8 1 4.5.9.7-.1 2.2-.9 2.5-1.8.3-.9.3-1.6.2-1.8-.1-.2-.3-.3-.7-.5l-2.4-1.2c-.3-.1-.6-.2-.8.2-.2.4-.9 1.2-1.1 1.4-.2.2-.4.3-.8.1-.4-.2-1.6-.6-3-1.9-1.1-1-1.9-2.2-2.1-2.6-.2-.4 0-.6.2-.8l.6-.7c.2-.2.3-.4.4-.6.1-.3.1-.5 0-.7l-1-2.5z" fill="currentColor" />
+      </symbol>
       <symbol id="logo" viewBox="0 0 760 250">
         <text class="lg-mag" x="4" y="150" textLength="460" lengthAdjust="spacingAndGlyphs">MAG</text>
         <text class="lg-nails" x="478" y="150" textLength="262" lengthAdjust="spacingAndGlyphs">NAILS</text>
@@ -201,6 +205,9 @@
           <h2 class="section__title split">Book your <em>moment</em></h2>
           <p>Send us your request and we'll confirm your appointment as soon as possible. Prefer to talk? Call or message us.</p>
           <p class="book__phone" data-config="phones"></p>
+          <a class="book__wa" data-config="whatsapp" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><use href="#wa-icon" /></svg>Message us on WhatsApp
+          </a>
         </div>
         <form class="form" novalidate>
           <div class="field"><input id="f-name" name="name" required placeholder=" " /><label for="f-name">Your name</label></div>
@@ -216,7 +223,8 @@
           </div>
           <div class="field"><input id="f-date" name="date" type="date" required placeholder=" " /><label for="f-date" class="is-fixed">Preferred date</label></div>
           <div class="field field--full"><textarea id="f-notes" name="notes" rows="3" placeholder=" "></textarea><label for="f-notes">Notes (optional)</label></div>
-          <button class="btn btn--full magnetic" type="submit"><span>Request appointment</span></button>
+          <button class="btn btn--full btn--wa magnetic" type="submit" data-via="whatsapp"><svg viewBox="0 0 32 32" aria-hidden="true"><use href="#wa-icon" /></svg><span>Send request on WhatsApp</span></button>
+          <button class="btn btn--full btn--ghost magnetic" type="submit" data-via="email"><span>Send by email instead</span></button>
           <p class="form__status" role="status" aria-live="polite"></p>
         </form>
       </div>
@@ -239,11 +247,15 @@
         </div>
         <div class="visit__block reveal" style="--d:2">
           <h3>Contact</h3>
-          <p><span data-config="phones"></span><br /><a data-config="email" href="#">—</a><br /><a data-config="instagram" href="#" target="_blank" rel="noopener">Instagram</a></p>
+          <p><span data-config="phones"></span><br /><a data-config="whatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a><br /><a data-config="email" href="#">—</a><br /><a data-config="instagram" href="#" target="_blank" rel="noopener">Instagram</a></p>
         </div>
       </div>
     </section>
   </main>
+
+  <a class="wa-float" data-config="whatsapp" href="#" target="_blank" rel="noopener" aria-label="Message us on WhatsApp">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><use href="#wa-icon" /></svg>
+  </a>
 
   <footer class="footer">
     <svg class="footer__logo" viewBox="0 0 760 250" aria-hidden="true"><use href="#logo" /></svg>
