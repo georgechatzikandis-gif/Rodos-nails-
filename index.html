@@ -50,6 +50,7 @@
       <a href="#services">Services</a>
       <a href="#gallery">Gallery</a>
       <a href="#brows">Brows</a>
+      <a href="#lips">Lips</a>
       <a href="#about">About</a>
       <a href="#hours">Hours</a>
       <a href="#visit">Visit</a>
@@ -138,7 +139,7 @@
       <div class="menu" data-panel="beauty">
         <article class="menu__item"><div><h3>Permanent Brows (Powder Brows)</h3><p>Designed from scratch to suit your face</p></div><span class="menu__dots"></span><a class="menu__book" data-config="treatwell" href="#" target="_blank" rel="noopener">Book →</a></article>
         <article class="menu__item"><div><h3>Brow Tattoo Cover-up</h3><p>A fresh, natural look over an old tattoo</p></div><span class="menu__dots"></span><a class="menu__book" data-config="treatwell" href="#" target="_blank" rel="noopener">Book →</a></article>
-        <article class="menu__item"><div><h3>Lip Tattoo</h3><p>Soft, lasting colour for your lips</p></div><span class="menu__dots"></span><a class="menu__book" data-config="treatwell" href="#" target="_blank" rel="noopener">Book →</a></article>
+        <article class="menu__item"><div><h3>Semi-permanent Lip Make-up</h3><p>Lip blush and aquarelle lips, soft natural colour</p></div><span class="menu__dots"></span><a class="menu__book" data-config="treatwell" href="#" target="_blank" rel="noopener">Book →</a></article>
         <article class="menu__item"><div><h3>Eyebrow Shaping</h3><p>With wax, tweezers or threading</p></div><span class="menu__dots"></span><a class="menu__book" data-config="treatwell" href="#" target="_blank" rel="noopener">Book →</a></article>
         <article class="menu__item"><div><h3>Brow Lamination</h3><p>Fuller, brushed-up, defined brows</p></div><span class="menu__dots"></span><a class="menu__book" data-config="treatwell" href="#" target="_blank" rel="noopener">Book →</a></article>
         <article class="menu__item"><div><h3>Semi-permanent Brow Tint</h3><p>Colour and definition for your brows</p></div><span class="menu__dots"></span><a class="menu__book" data-config="treatwell" href="#" target="_blank" rel="noopener">Book →</a></article>
@@ -158,7 +159,7 @@
     </section>
 
     <!-- Brows & lashes: feature video + filterable results (filled from BROWS in js/main.js) -->
-    <section class="section brows" id="brows">
+    <section class="section brows pmu" id="brows" data-list="brows">
       <div class="section__head">
         <p class="eyebrow reveal">03 — Brows &amp; Lashes</p>
         <h2 class="section__title split">Brows, <em>designed</em> for you</h2>
@@ -179,7 +180,7 @@
             <li class="reveal" style="--d:1"><b>2</b><div><h4>Tattoo</h4><p>Soft powder brows, or a cover-up of an old tattoo.</p></div></li>
             <li class="reveal" style="--d:2"><b>3</b><div><h4>Touch-up</h4><p>Once healed, we perfect the final result.</p></div></li>
           </ol>
-          <p class="brows__also reveal">Also: lip tattoo · brow lamination · lash lift &amp; tint</p>
+          <p class="brows__also reveal">Also: brow lamination · lash lift &amp; tint</p>
           <a class="btn magnetic reveal" data-config="treatwell" href="#" target="_blank" rel="noopener">Book on Treatwell</a>
         </div>
       </div>
@@ -190,7 +191,42 @@
         <button class="chip" data-filter="ba" aria-pressed="false">Before &amp; after <span class="chip__n"></span></button>
         <button class="chip" data-filter="lash" aria-pressed="false">Lashes &amp; lamination <span class="chip__n"></span></button>
       </div>
-      <div class="works brows-grid"></div>
+      <div class="works pmu-grid"></div>
+    </section>
+
+    <!-- Lips: semi-permanent lip make-up (filled from LIPS in js/main.js) -->
+    <section class="section brows lips pmu" id="lips" data-list="lips">
+      <div class="section__head">
+        <p class="eyebrow reveal">04 — Lips</p>
+        <h2 class="section__title split">Lips, <em>softly</em> defined</h2>
+      </div>
+
+      <div class="brows__feature">
+        <div class="brows__text">
+          <p class="eyebrow reveal">Semi-permanent make-up</p>
+          <h3 class="brows__title reveal">Semi-permanent lip make-up</h3>
+          <p class="reveal">Soft, natural-looking colour and definition for your lips. We choose the shade together and shape it to suit your face, so your lips look fresh every day, without lipstick.</p>
+          <ol class="brows__steps">
+            <li class="reveal" style="--d:0"><b>1</b><div><h4>Colour</h4><p>We pick the right shade for you, from soft blush to deep red.</p></div></li>
+            <li class="reveal" style="--d:1"><b>2</b><div><h4>Shape</h4><p>The lip line is designed and the colour gently applied.</p></div></li>
+            <li class="reveal" style="--d:2"><b>3</b><div><h4>Heal &amp; refresh</h4><p>The colour softens as it heals and can be refreshed later.</p></div></li>
+          </ol>
+          <p class="brows__also reveal">Lip blush · aquarelle lips · lip refresh</p>
+          <a class="btn magnetic reveal" data-config="treatwell" href="#" target="_blank" rel="noopener">Book on Treatwell</a>
+        </div>
+        <div class="brows__video reveal">
+          <video muted loop playsinline preload="metadata" poster="assets/lips/video.jpg" aria-label="Close-up of semi-permanent lip colour">
+            <source src="assets/lips/video.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+
+      <div class="chips reveal" role="group" aria-label="Filter lip results">
+        <button class="chip" data-filter="all" aria-pressed="true">All <span class="chip__n"></span></button>
+        <button class="chip" data-filter="ba" aria-pressed="false">Before &amp; after <span class="chip__n"></span></button>
+        <button class="chip" data-filter="healed" aria-pressed="false">Healed results <span class="chip__n"></span></button>
+      </div>
+      <div class="works pmu-grid"></div>
     </section>
 
     <!-- Lightbox for the work gallery -->
@@ -211,7 +247,7 @@
         <span class="about__ring" aria-hidden="true"></span>
       </div>
       <div class="about__text">
-        <p class="eyebrow reveal">04 — The studio</p>
+        <p class="eyebrow reveal">05 — The studio</p>
         <h2 class="section__title split">Clean lines. <em>Careful</em> hands.</h2>
         <p class="reveal">At MAG Nails &amp; Beauty Shop we believe great nails are about the details: the perfect shape, a clean cuticle line and colour that lasts. Every appointment starts with a consultation, so you leave with exactly what you came for.</p>
         <ul class="features">
@@ -226,7 +262,7 @@
     <!-- Process -->
     <section class="section process">
       <div class="section__head">
-        <p class="eyebrow reveal">05 — Your visit</p>
+        <p class="eyebrow reveal">06 — Your visit</p>
         <h2 class="section__title split">How it works</h2>
       </div>
       <div class="steps">
@@ -241,7 +277,7 @@
     <!-- Reviews (filled from REVIEWS in js/main.js) -->
     <section class="section reviews" id="reviews">
       <div class="section__head">
-        <p class="eyebrow reveal">06 — Reviews</p>
+        <p class="eyebrow reveal">07 — Reviews</p>
         <h2 class="section__title split">Loved by our <em>clients</em></h2>
       </div>
       <div class="ratings">
@@ -268,7 +304,7 @@
     <section class="section book" id="book">
       <div class="book__card reveal">
         <div class="book__intro">
-          <p class="eyebrow">07 — Appointments</p>
+          <p class="eyebrow">08 — Appointments</p>
           <h2 class="section__title split">Book your <em>moment</em></h2>
           <p>All appointments are booked online through Treatwell. Choose your service, see the available times and book in a few taps, day or night.</p>
         </div>
@@ -288,7 +324,7 @@
     <!-- Opening hours (live) -->
     <section class="section opening" id="hours">
       <div class="section__head">
-        <p class="eyebrow reveal">08 — Opening hours</p>
+        <p class="eyebrow reveal">09 — Opening hours</p>
         <h2 class="section__title split">When to <em>find us</em></h2>
       </div>
       <div class="opening__grid">
@@ -314,7 +350,7 @@
     <!-- Visit -->
     <section class="section visit" id="visit">
       <div class="section__head">
-        <p class="eyebrow reveal">09 — Find us</p>
+        <p class="eyebrow reveal">10 — Find us</p>
         <h2 class="section__title split">Come say hello</h2>
       </div>
       <div class="visit__grid">

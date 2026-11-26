@@ -91,6 +91,20 @@ const BROWS = [
   { img: "assets/brows/b04.jpg", w: 1000, h: 1776, tags: ["lash"], alt: "Brow lamination and lash lift result" },
 ];
 
+/* ---- Semi-permanent lip make-up results (files in assets/lips)
+   tags: "ba" = before & after, "healed" = healed result / refresh ---- */
+const LIPS = [
+  { img: "assets/lips/l03.jpg", w: 1000, h: 1000, tags: ["ba", "healed"], alt: "Natural lips before, healed lip blush four months later" },
+  { img: "assets/lips/l08.jpg", w: 1000, h: 1334, tags: [], alt: "Semi-permanent lip colour, front view" },
+  { img: "assets/lips/l06.jpg", w: 1000, h: 1250, tags: ["ba"], alt: "Lips before and after semi-permanent make-up" },
+  { img: "assets/lips/l04.jpg", w: 1000, h: 1250, tags: ["healed"], alt: "Healed aquarelle lips" },
+  { img: "assets/lips/l01.jpg", w: 1000, h: 1000, tags: [], alt: "Red semi-permanent lip colour" },
+  { img: "assets/lips/l07.jpg", w: 1000, h: 1248, tags: ["ba", "healed"], alt: "Lip blush refresh two and a half years later" },
+  { img: "assets/lips/l09.jpg", w: 1000, h: 1334, tags: [], alt: "Semi-permanent lip colour, side view" },
+  { img: "assets/lips/l05.jpg", w: 1000, h: 1248, tags: [], alt: "Defined red lips, side view" },
+  { img: "assets/lips/l02.jpg", w: 922, h: 1152, tags: [], alt: "Soft red lip colour" },
+];
+
 (() => {
   const $ =(s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -230,22 +244,26 @@ const BROWS = [
 
   makeGallery($(".works"), WORK);
 
-  /* ---------- Brows & lashes: feature video + filterable results ---------- */
-  const brows = makeGallery($(".brows-grid"), BROWS);
-  const chips = $$(".chip");
-  chips.forEach(chip => {
-    const f = chip.dataset.filter;
-    $(".chip__n", chip).textContent = f === "all" ? BROWS.length : BROWS.filter(b => b.tags.includes(f)).length;
-    chip.addEventListener("click", () => {
-      chips.forEach(c => c.setAttribute("aria-pressed", c === chip));
-      brows.filter(b => f === "all" || b.tags.includes(f));
+  /* ---------- Brows & lashes / Lips: feature video + filterable results ---------- */
+  const PMU_LISTS = { brows: BROWS, lips: LIPS };
+  $$(".pmu").forEach(section => {
+    const list = PMU_LISTS[section.dataset.list];
+    const gallery = makeGallery($(".pmu-grid", section), list);
+    const chips = $$(".chip", section);
+    chips.forEach(chip => {
+      const f = chip.dataset.filter;
+      $(".chip__n", chip).textContent = f === "all" ? list.length : list.filter(b => b.tags.includes(f)).length;
+      chip.addEventListener("click", () => {
+        chips.forEach(c => c.setAttribute("aria-pressed", c === chip));
+        gallery.filter(b => f === "all" || b.tags.includes(f));
+      });
     });
+    const video = $(".brows__video video", section);
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !reduceMotion) video.play().catch(() => {});
+      else video.pause();
+    }, { threshold: 0.3 }).observe(video);
   });
-  const browVideo = $(".brows__video video");
-  new IntersectionObserver(([e]) => {
-    if (e.isIntersecting && !reduceMotion) browVideo.play().catch(() => {});
-    else browVideo.pause();
-  }, { threshold: 0.3 }).observe(browVideo);
 
   /* ---------- Live opening hours ---------- */
   const toMin = t => { const [h, m] = t.split(":").map(Number); return h * 60 + m; };
