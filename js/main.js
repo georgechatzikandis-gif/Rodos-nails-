@@ -9,7 +9,7 @@ const CONFIG = {
   whatsapp: "+30 6955 36 9825",
   email: "",                           // leave empty to hide it
   instagram: "https://instagram.com/", // placeholder: full profile URL
-  address: "Street &amp; number<br>Rhodes, Greece", // placeholder
+  address: "Alexandrou Papadiamanti 4<br>Rhodes, Greece",
   timeZone: "Europe/Athens",           // the live "open now" status uses the salon's local time
   hours: [ // Monday first; [open, close] in 24h time, or null when closed
     ["Monday",    ["09:00", "20:00"]],
