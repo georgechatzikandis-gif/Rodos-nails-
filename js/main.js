@@ -2,22 +2,23 @@
    MAG Nails & Beauty Shop — interactions & animations
    ========================================================== */
 
-/* ---- EDIT YOUR SALON DETAILS HERE ----
-   These are placeholders. Replace them with the real details. */
+/* ---- EDIT YOUR SALON DETAILS HERE ---- */
 const CONFIG = {
+  treatwell: "https://www.treatwell.gr/katasthma/mag-nails-beauty-shop/", // all bookings go here
   phones: ["+30 22410 69344", "+30 6955 36 9825"], // landline, mobile
   whatsapp: "+30 6955 36 9825",
-  email: "hello@example.com",          // booking requests are emailed here
-  instagram: "https://instagram.com/", // full profile URL
-  address: "Street &amp; number<br>Rhodes, Greece",
-  hours: [ // Monday first
-    ["Monday", "10:00 – 20:00"],
-    ["Tuesday", "10:00 – 20:00"],
-    ["Wednesday", "10:00 – 20:00"],
-    ["Thursday", "10:00 – 20:00"],
-    ["Friday", "10:00 – 20:00"],
-    ["Saturday", "10:00 – 16:00"],
-    ["Sunday", "Closed"],
+  email: "",                           // leave empty to hide it
+  instagram: "https://instagram.com/", // placeholder: full profile URL
+  address: "Street &amp; number<br>Rhodes, Greece", // placeholder
+  timeZone: "Europe/Athens",           // the live "open now" status uses the salon's local time
+  hours: [ // Monday first; [open, close] in 24h time, or null when closed
+    ["Monday",    ["09:00", "20:00"]],
+    ["Tuesday",   ["09:00", "20:00"]],
+    ["Wednesday", ["09:00", "20:00"]],
+    ["Thursday",  ["09:00", "20:00"]],
+    ["Friday",    ["12:00", "20:00"]],
+    ["Saturday",  ["09:00", "17:00"]],
+    ["Sunday",    null],
   ],
 };
 
@@ -29,16 +30,86 @@ const CONFIG = {
 
   /* ---------- Fill contact details ---------- */
   $$('[data-config="phones"]').forEach(el => { el.innerHTML = CONFIG.phones.map(n => `<a href="tel:${n.replace(/[^\d+]/g, "")}">${n}</a>`).join("<br>"); });
-  $$('[data-config="email"]').forEach(a => { a.textContent = CONFIG.email; a.href = "mailto:" + CONFIG.email; });
+  if (CONFIG.email) $$('[data-config="email"]').forEach(a => { a.textContent = CONFIG.email; a.href = "mailto:" + CONFIG.email; });
+  else $$('[data-optional="email"]').forEach(el => el.remove());
   $$('[data-config="instagram"]').forEach(a => { a.href = CONFIG.instagram; });
-  const waLink = text => `https://wa.me/${CONFIG.whatsapp.replace(/\D/g, "")}` + (text ? `?text=${encodeURIComponent(text)}` : "");
-  $$('[data-config="whatsapp"]').forEach(a => { a.href = waLink("Hello! I'd like to book an appointment."); });
+  $$('[data-config="treatwell"]').forEach(a => { a.href = CONFIG.treatwell; });
+  $$('[data-config="whatsapp"]').forEach(a => { a.href = `https://wa.me/${CONFIG.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent("Hello!")}`; });
   $$('[data-config="address"]').forEach(p => { p.innerHTML = CONFIG.address; });
-  const today = (new Date().getDay() + 6) % 7;
-  $$('[data-config="hours"]').forEach(ul => {
-    ul.innerHTML = CONFIG.hours.map(([d, h], i) => `<li class="${i === today ? "is-today" : ""}"><span>${d}</span><span>${h}</span></li>`).join("");
-  });
   $("#year").textContent = new Date().getFullYear();
+
+  /* ---------- Live opening hours ---------- */
+  const toMin = t => { const [h, m] = t.split(":").map(Number); return h * 60 + m; };
+  const fmtDur = m => {
+    const d = Math.floor(m / 1440), h = Math.floor((m % 1440) / 60), min = m % 60;
+    return [d && `${d} d`, h && `${h} h`, !d && min && `${min} min`].filter(Boolean).join(" ") || "less than a minute";
+  };
+  const salonNow = () => {
+    const parts = new Intl.DateTimeFormat("en-GB", { timeZone: CONFIG.timeZone, weekday: "short", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date());
+    const get = t => parts.find(p => p.type === t).value;
+    return { day: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].indexOf(get("weekday")), mins: +get("hour") * 60 + +get("minute"), hhmm: `${get("hour")}:${get("minute")}` };
+  };
+
+  // build the weekly timeline once
+  const openDays = CONFIG.hours.filter(([, h]) => h);
+  const axisStart = Math.floor(Math.min(...openDays.map(([, h]) => toMin(h[0]))) / 60) - 1;
+  const axisEnd = Math.ceil(Math.max(...openDays.map(([, h]) => toMin(h[1]))) / 60) + 1;
+  const span = (axisEnd - axisStart) * 60;
+  const pos = m => ((m - axisStart * 60) / span) * 100;
+  const week = $(".week");
+  week.style.setProperty("--hours", axisEnd - axisStart);
+  $(".week__axis").innerHTML = Array.from({ length: axisEnd - axisStart + 1 }, (_, i) => axisStart + i)
+    .filter(h => (h - axisStart) % 2 === 0)
+    .map(h => `<span style="left:${pos(h * 60)}%">${String(h).padStart(2, "0")}:00</span>`).join("");
+  $(".week__days").innerHTML = CONFIG.hours.map(([name, h], i) => `
+    <div class="day${h ? "" : " is-closed"}" style="--i:${i}">
+      <span class="day__name"><span class="day__full">${name}</span><span class="day__short">${name.slice(0, 3)}</span></span>
+      <div class="day__track">${h ? `<span class="day__bar" style="left:${pos(toMin(h[0]))}%;width:${pos(toMin(h[1])) - pos(toMin(h[0]))}%"></span>` : ""}<span class="day__now"></span></div>
+      <span class="day__time">${h ? `${h[0]} – ${h[1]}` : "Closed"}</span>
+    </div>`).join("");
+  const dayRows = $$(".day");
+  const statusEl = $(".status");
+  const ringFill = $(".status__fill");
+  const ringLen = 2 * Math.PI * 100;
+  ringFill.style.strokeDasharray = ringLen;
+
+  const updateHours = () => {
+    const now = salonNow();
+    const today = CONFIG.hours[now.day][1];
+    let state, label, detail, count, progress = 0;
+    if (today && now.mins >= toMin(today[0]) && now.mins < toMin(today[1])) {
+      const o = toMin(today[0]), c = toMin(today[1]), left = c - now.mins;
+      state = left <= 60 ? "closing" : "open";
+      label = left <= 60 ? "Closing soon" : "Open now";
+      detail = `Today until ${today[1]}`;
+      count = `Closes in ${fmtDur(left)}`;
+      progress = (now.mins - o) / (c - o);
+    } else {
+      state = "closed"; label = "Closed now";
+      for (let k = 0; k <= 7; k++) {
+        const d = (now.day + k) % 7, h = CONFIG.hours[d][1];
+        if (!h || (k === 0 && now.mins >= toMin(h[0]))) continue;
+        detail = `Opens ${k === 0 ? "today" : k === 1 ? "tomorrow" : CONFIG.hours[d][0]} at ${h[0]}`;
+        count = `in ${fmtDur(k * 1440 + toMin(h[0]) - now.mins)}`;
+        break;
+      }
+    }
+    statusEl.dataset.state = state;
+    $(".status__text").textContent = label;
+    $(".status__detail").textContent = detail;
+    $(".status__count").textContent = count;
+    $(".status__clock b").textContent = now.hhmm;
+    ringFill.style.strokeDashoffset = ringLen * (1 - progress);
+    dayRows.forEach((row, i) => {
+      row.classList.toggle("is-today", i === now.day);
+      const marker = $(".day__now", row);
+      const p = pos(now.mins);
+      marker.hidden = i !== now.day || p < 0 || p > 100;
+      marker.style.left = p + "%";
+    });
+  };
+  updateHours();
+  setInterval(updateHours, 20000);
 
   /* ---------- Inline the logo into each SVG so every copy animates on its own ---------- */
   const symbol = $("#logo");
@@ -168,7 +239,7 @@ const CONFIG = {
   const blobs = $$(".blob");
   const videoHero = $(".video-hero");
   const waFloat = $(".wa-float");
-  const bookForm = $(".form");
+  const bookCard = $(".book__card");
   const steps = $(".steps");
   const stepLine = $(".steps__line");
   const stepItems = $$(".step");
@@ -183,7 +254,7 @@ const CONFIG = {
     // keep the nav off the video; after it, hide on scroll down and show on scroll up
     const vh = videoHero.offsetHeight;
     if (!nav.classList.contains("is-open")) nav.classList.toggle("is-hidden", y < vh - 80 || (y > lastY && y > vh + 400));
-    const fr = bookForm.getBoundingClientRect(); // the form has its own WhatsApp button
+    const fr = bookCard.getBoundingClientRect(); // keep the Treatwell button clear
     waFloat.classList.toggle("is-visible", y > vh - 80 && !(fr.top < innerHeight && fr.bottom > 0));
     lastY = y;
 
@@ -235,32 +306,4 @@ const CONFIG = {
     });
   }
 
-  /* ---------- Booking form ---------- */
-  const form = $(".form");
-  const status = $(".form__status");
-  const dateInput = $("#f-date");
-  dateInput.min = new Date().toISOString().split("T")[0];
-
-  form.addEventListener("submit", e => {
-    e.preventDefault();
-    let ok = true;
-    $$("[required]", form).forEach(f => {
-      const bad = !f.value.trim();
-      f.closest(".field").classList.toggle("is-invalid", bad);
-      if (bad) ok = false;
-    });
-    if (!ok) { status.textContent = "Please fill in the highlighted fields."; return; }
-
-    const d = Object.fromEntries(new FormData(form));
-    const body = `Name: ${d.name}\nPhone: ${d.phone}\nService: ${d.service}\nPreferred date: ${d.date}\nNotes: ${d.notes || "-"}`;
-    if ((e.submitter && e.submitter.dataset.via) === "email") {
-      location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent("Appointment request — " + d.service)}&body=${encodeURIComponent(body)}`;
-      status.textContent = "Thank you! Your email app will open so you can send the request.";
-    } else {
-      window.open(waLink("Hello! I'd like to book an appointment.\n\n" + body), "_blank", "noopener");
-      status.textContent = "Thank you! WhatsApp will open so you can send the request.";
-    }
-    form.reset();
-  });
-  $$("input, select, textarea", form).forEach(f => f.addEventListener("input", () => f.closest(".field").classList.remove("is-invalid")));
 })();
