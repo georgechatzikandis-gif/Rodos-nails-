@@ -50,6 +50,7 @@
       <a href="#services">Services</a>
       <a href="#gallery">Gallery</a>
       <a href="#brows">Brows</a>
+      <a href="#lashes">Lashes</a>
       <a href="#lips">Lips</a>
       <a href="#about">About</a>
       <a href="#hours">Hours</a>
@@ -161,7 +162,7 @@
     <!-- Brows & lashes: feature video + filterable results (filled from BROWS in js/main.js) -->
     <section class="section brows pmu" id="brows" data-list="brows">
       <div class="section__head">
-        <p class="eyebrow reveal">03 — Brows &amp; Lashes</p>
+        <p class="eyebrow reveal">03 — Brows</p>
         <h2 class="section__title split">Brows, <em>designed</em> for you</h2>
       </div>
 
@@ -180,16 +181,48 @@
             <li class="reveal" style="--d:1"><b>2</b><div><h4>Tattoo</h4><p>Soft powder brows, or a cover-up of an old tattoo.</p></div></li>
             <li class="reveal" style="--d:2"><b>3</b><div><h4>Touch-up</h4><p>Once healed, we perfect the final result.</p></div></li>
           </ol>
-          <p class="brows__also reveal">Also: brow lamination · lash lift &amp; tint</p>
           <a class="btn magnetic reveal" data-config="treatwell" href="#" target="_blank" rel="noopener">Book on Treatwell</a>
         </div>
       </div>
 
       <div class="chips reveal" role="group" aria-label="Filter results">
         <button class="chip" data-filter="all" aria-pressed="true">All <span class="chip__n"></span></button>
-        <button class="chip" data-filter="tattoo" aria-pressed="false">Permanent brows <span class="chip__n"></span></button>
         <button class="chip" data-filter="ba" aria-pressed="false">Before &amp; after <span class="chip__n"></span></button>
-        <button class="chip" data-filter="lash" aria-pressed="false">Lashes &amp; lamination <span class="chip__n"></span></button>
+      </div>
+      <div class="works pmu-grid"></div>
+    </section>
+
+    <!-- Lashes & brow care: lash lift, tint, brow lamination (filled from LASHES in js/main.js) -->
+    <section class="section brows lashes pmu" id="lashes" data-list="lashes">
+      <div class="section__head">
+        <p class="eyebrow reveal">04 — Lashes</p>
+        <h2 class="section__title split">Lashes that <em>lift</em> you</h2>
+      </div>
+
+      <div class="brows__feature">
+        <div class="brows__text">
+          <p class="eyebrow reveal">Lash lift &amp; brow care</p>
+          <h3 class="brows__title reveal">Your own lashes, beautifully lifted</h3>
+          <p class="reveal">No extensions, no glue: a lash lift curls and opens up your natural lashes, and a tint gives them depth. Pair it with brow lamination or shaping for a fresh, groomed look that lasts for weeks.</p>
+          <ol class="brows__steps">
+            <li class="reveal" style="--d:0"><b>1</b><div><h4>Lash lift &amp; tint</h4><p>A natural curl and darker colour for your own lashes.</p></div></li>
+            <li class="reveal" style="--d:1"><b>2</b><div><h4>Brow lamination</h4><p>Brushed-up, fuller and perfectly set brows.</p></div></li>
+            <li class="reveal" style="--d:2"><b>3</b><div><h4>Brow shaping &amp; tint</h4><p>Clean shape and colour to frame your eyes.</p></div></li>
+          </ol>
+          <p class="brows__also reveal">Wake up beautiful · stay effortlessly natural</p>
+          <a class="btn magnetic reveal" data-config="treatwell" href="#" target="_blank" rel="noopener">Book on Treatwell</a>
+        </div>
+        <div class="brows__video reveal">
+          <video muted loop playsinline preload="metadata" poster="assets/lashes/video.jpg" aria-label="Lash lift and tint, before and after">
+            <source src="assets/lashes/video.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+
+      <div class="chips reveal" role="group" aria-label="Filter lash results">
+        <button class="chip" data-filter="all" aria-pressed="true">All <span class="chip__n"></span></button>
+        <button class="chip" data-filter="ba" aria-pressed="false">Before &amp; after <span class="chip__n"></span></button>
+        <button class="chip" data-filter="lam" aria-pressed="false">Brow lamination <span class="chip__n"></span></button>
       </div>
       <div class="works pmu-grid"></div>
     </section>
@@ -197,7 +230,7 @@
     <!-- Lips: semi-permanent lip make-up (filled from LIPS in js/main.js) -->
     <section class="section brows lips pmu" id="lips" data-list="lips">
       <div class="section__head">
-        <p class="eyebrow reveal">04 — Lips</p>
+        <p class="eyebrow reveal">05 — Lips</p>
         <h2 class="section__title split">Lips, <em>softly</em> defined</h2>
       </div>
 
@@ -247,7 +280,7 @@
         <span class="about__ring" aria-hidden="true"></span>
       </div>
       <div class="about__text">
-        <p class="eyebrow reveal">05 — The studio</p>
+        <p class="eyebrow reveal">06 — The studio</p>
         <h2 class="section__title split">Clean lines. <em>Careful</em> hands.</h2>
         <p class="reveal">At MAG Nails &amp; Beauty Shop we believe great nails are about the details: the perfect shape, a clean cuticle line and colour that lasts. Every appointment starts with a consultation, so you leave with exactly what you came for.</p>
         <ul class="features">
@@ -262,7 +295,7 @@
     <!-- Process -->
     <section class="section process">
       <div class="section__head">
-        <p class="eyebrow reveal">06 — Your visit</p>
+        <p class="eyebrow reveal">07 — Your visit</p>
         <h2 class="section__title split">How it works</h2>
       </div>
       <div class="steps">
@@ -277,7 +310,7 @@
     <!-- Reviews (filled from REVIEWS in js/main.js) -->
     <section class="section reviews" id="reviews">
       <div class="section__head">
-        <p class="eyebrow reveal">07 — Reviews</p>
+        <p class="eyebrow reveal">08 — Reviews</p>
         <h2 class="section__title split">Loved by our <em>clients</em></h2>
       </div>
       <div class="ratings">
@@ -304,7 +337,7 @@
     <section class="section book" id="book">
       <div class="book__card reveal">
         <div class="book__intro">
-          <p class="eyebrow">08 — Appointments</p>
+          <p class="eyebrow">09 — Appointments</p>
           <h2 class="section__title split">Book your <em>moment</em></h2>
           <p>All appointments are booked online through Treatwell. Choose your service, see the available times and book in a few taps, day or night.</p>
         </div>
@@ -324,7 +357,7 @@
     <!-- Opening hours (live) -->
     <section class="section opening" id="hours">
       <div class="section__head">
-        <p class="eyebrow reveal">09 — Opening hours</p>
+        <p class="eyebrow reveal">10 — Opening hours</p>
         <h2 class="section__title split">When to <em>find us</em></h2>
       </div>
       <div class="opening__grid">
@@ -350,7 +383,7 @@
     <!-- Visit -->
     <section class="section visit" id="visit">
       <div class="section__head">
-        <p class="eyebrow reveal">10 — Find us</p>
+        <p class="eyebrow reveal">11 — Find us</p>
         <h2 class="section__title split">Come say hello</h2>
       </div>
       <div class="visit__grid">

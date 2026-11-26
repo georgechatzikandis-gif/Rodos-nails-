@@ -75,22 +75,31 @@ const WORK = [
    tags: "tattoo" = permanent brows, "ba" = before & after, "lash" = lash lift / lamination ---- */
 const BROWS = [
   { img: "assets/brows/b01.jpg", w: 1000, h: 1248, tags: ["tattoo"], alt: "Powder brows, close-up" },
-  { img: "assets/brows/b05.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], ba: true, alt: "Brow mapping before, permanent brows after" },
+  { img: "assets/brows/b05.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], alt: "Brow mapping before, permanent brows after" },
   { img: "assets/brows/b07.jpg", w: 1000, h: 1000, tags: ["tattoo"], alt: "Collection of permanent brow results" },
-  { img: "assets/brows/b12.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], ba: true, alt: "Cover-up of an old brow tattoo, before and after" },
-  { img: "assets/brows/b08.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], ba: true, alt: "Permanent brows, before and after" },
+  { img: "assets/brows/b12.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], alt: "Cover-up of an old brow tattoo, before and after" },
+  { img: "assets/brows/b08.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], alt: "Permanent brows, before and after" },
   { img: "assets/brows/b15.jpg", w: 1000, h: 1776, tags: ["tattoo"], alt: "Fresh powder brows" },
-  { img: "assets/brows/b06.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], ba: true, alt: "Permanent brows, before and after" },
-  { img: "assets/brows/b09.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], ba: true, alt: "Before and healed result before touch-up" },
-  { img: "assets/brows/b14.jpg", w: 1000, h: 1250, tags: ["tattoo", "lash"], alt: "Powder brows, lip tattoo, lash lift and brow lamination" },
-  { img: "assets/brows/b10.jpg", w: 1000, h: 1000, tags: ["lash", "ba"], ba: true, alt: "Brow lamination and lash lift, before and after" },
-  { img: "assets/brows/b02.jpg", w: 1000, h: 1248, tags: ["lash", "ba"], ba: true, alt: "Lash lift, brow shaping and tint, before and after" },
-  { img: "assets/brows/b13.jpg", w: 1000, h: 1250, tags: ["lash", "ba"], ba: true, alt: "Lash lift and tint, before and after" },
-  { img: "assets/brows/b11.jpg", w: 1000, h: 1772, tags: ["lash", "ba"], ba: true, alt: "Lash lift and brow lamination, before and after" },
-  { img: "assets/brows/b03.jpg", w: 1000, h: 1776, tags: ["lash"], alt: "Laminated brows and lifted lashes" },
-  { img: "assets/brows/b04.jpg", w: 1000, h: 1776, tags: ["lash"], alt: "Brow lamination and lash lift result" },
+  { img: "assets/brows/b06.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], alt: "Permanent brows, before and after" },
+  { img: "assets/brows/b09.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], alt: "Before and healed result before touch-up" },
 ];
 
+
+/* ---- Lashes & brow care: lash lift, tint, brow lamination (files in assets/lashes, some in assets/brows)
+   tags: "ba" = before & after, "lift" = lash lift, "lam" = brow lamination ---- */
+const LASHES = [
+  { img: "assets/lashes/p02.jpg", w: 1000, h: 1000, tags: ["ba", "lift"], alt: "Lash lift, before and after" },
+  { img: "assets/lashes/p01.jpg", w: 1000, h: 1334, tags: ["lift"], alt: "Lifted natural lashes, close-up" },
+  { img: "assets/lashes/p03.jpg", w: 1000, h: 1000, tags: ["ba", "lift"], alt: "Lash lift and tint, before and after" },
+  { img: "assets/brows/b11.jpg", w: 1000, h: 1772, tags: ["ba", "lift", "lam"], alt: "Lash lift and brow lamination, before and after" },
+  { video: "assets/lashes/w01.mp4", poster: "assets/lashes/w01.jpg", w: 720, h: 1280, tags: ["lift"], alt: "Lifted lashes on blue eyes" },
+  { img: "assets/brows/b10.jpg", w: 1000, h: 1000, tags: ["ba", "lift", "lam"], alt: "Brow lamination and lash lift, before and after" },
+  { img: "assets/brows/b02.jpg", w: 1000, h: 1248, tags: ["ba", "lift"], alt: "Lash lift, brow shaping and tint, before and after" },
+  { img: "assets/brows/b13.jpg", w: 1000, h: 1250, tags: ["ba", "lift"], alt: "Lash lift and tint, before and after" },
+  { img: "assets/brows/b14.jpg", w: 1000, h: 1250, tags: ["lift", "lam"], alt: "Lash lift, brow lamination, powder brows and lip colour" },
+  { img: "assets/brows/b03.jpg", w: 1000, h: 1776, tags: ["lift", "lam"], alt: "Laminated brows and lifted lashes" },
+  { img: "assets/brows/b04.jpg", w: 1000, h: 1776, tags: ["lift", "lam"], alt: "Brow lamination and lash lift result" },
+];
 /* ---- Semi-permanent lip make-up results (files in assets/lips)
    tags: "ba" = before & after, "healed" = healed result / refresh ---- */
 const LIPS = [
@@ -245,7 +254,7 @@ const LIPS = [
   makeGallery($(".works"), WORK);
 
   /* ---------- Brows & lashes / Lips: feature video + filterable results ---------- */
-  const PMU_LISTS = { brows: BROWS, lips: LIPS };
+  const PMU_LISTS = { brows: BROWS, lashes: LASHES, lips: LIPS };
   $$(".pmu").forEach(section => {
     const list = PMU_LISTS[section.dataset.list];
     const gallery = makeGallery($(".pmu-grid", section), list);
