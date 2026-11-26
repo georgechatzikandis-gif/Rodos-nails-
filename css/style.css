@@ -303,53 +303,70 @@ em { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: v
   .menu__dots { display: none; }
 }
 
-/* ---------- Gallery: CSS nails ---------- */
+/* ---------- Our work (photos + videos) ---------- */
 .gallery { background: var(--paper-2); }
-.nails { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(20px, 4vw, 48px); max-width: 1000px; margin: 0 auto; }
-@media (max-width: 720px) { .nails { grid-template-columns: repeat(2, 1fr); } }
-.nail { margin: 0; text-align: center; perspective: 600px; }
-.nail__tip {
-  --c1: #f3d9d3; --c2: #e7bcb4;
-  position: relative; margin: 0 auto 16px; width: min(120px, 70%); aspect-ratio: 5 / 8;
-  border-radius: 50% 50% 46% 46% / 62% 62% 38% 38%;
-  background: linear-gradient(165deg, var(--c1), var(--c2));
-  box-shadow: 0 20px 40px -18px rgba(22,22,22,.35), inset 0 -10px 20px rgba(0,0,0,.06);
-  overflow: hidden; transition: transform .7s var(--ease), box-shadow .7s var(--ease);
-  animation: bob 6s ease-in-out infinite; animation-delay: calc(var(--d) * -.7s);
+.works { columns: 3 280px; column-gap: 18px; max-width: 1200px; margin: 0 auto; }
+@media (max-width: 560px) { .works { columns: 2; column-gap: 10px; } }
+.work {
+  position: relative; display: block; width: 100%; margin: 0 0 18px; padding: 0; border: 0;
+  break-inside: avoid; overflow: hidden; background: var(--ink); cursor: zoom-in;
+  isolation: isolate;
 }
-.nail__tip::after { /* gloss + sweeping shine */
-  content: ""; position: absolute; inset: -20% -60%;
-  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,.75) 50%, transparent 60%);
-  transform: translateX(-60%); transition: transform 1.1s var(--ease);
+@media (max-width: 560px) { .work { margin-bottom: 10px; } }
+.work img, .work video {
+  display: block; width: 100%; height: auto;
+  transition: transform 1.2s var(--ease), filter .6s;
 }
-.nail__tip::before { content: ""; position: absolute; top: 10%; left: 18%; width: 18%; height: 38%; border-radius: 50%; background: rgba(255,255,255,.45); filter: blur(3px); }
-.nail:hover .nail__tip { transform: translateY(-12px) rotateX(10deg) rotateY(-8deg); box-shadow: 0 34px 50px -20px rgba(22,22,22,.45); animation-play-state: paused; }
-.nail:hover .nail__tip::after { transform: translateX(60%); }
-.nail figcaption { font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
-@keyframes bob { 0%,100% { translate: 0 0; } 50% { translate: 0 -6px; } }
+.work:hover img, .work:hover video { transform: scale(1.05); }
+.work::after { /* soft shade on hover */
+  content: ""; position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to top, rgba(0,0,0,.35), transparent 45%);
+  opacity: 0; transition: opacity .5s;
+}
+.work:hover::after { opacity: 1; }
+.work__badge {
+  position: absolute; top: 12px; right: 12px; z-index: 2;
+  display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  background: rgba(255,255,255,.85); color: var(--ink); font-size: 10px;
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+}
+.work__zoom {
+  position: absolute; left: 14px; bottom: 12px; z-index: 2; color: #fff;
+  font-size: 11px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase;
+  opacity: 0; transform: translateY(8px); transition: opacity .4s, transform .5s var(--ease);
+}
+.work:hover .work__zoom { opacity: 1; transform: none; }
+.work.reveal { transform: translateY(60px) scale(.97); }
+.work.reveal.is-in { transform: none; }
 
-.nail--french { --c1: #f6e3de; --c2: #efcfc8; }
-.nail--french { background: linear-gradient(#fff 0 0) top / 100% 26% no-repeat, linear-gradient(165deg, var(--c1), var(--c2)); }
-.nail--chrome { background: conic-gradient(from 200deg at 40% 40%, #f7f1ee, #d9cfd6, #fff, #e6d9d3, #cfc6cf, #f7f1ee); }
-.nail--ombre  { background: linear-gradient(180deg, #fff 0%, #f6dcd6 55%, #e9bfb7 100%); }
-.nail--red    { --c1: #c4243a; --c2: #7f0f22; }
-.nail--black  { --c1: #3a3434; --c2: #0d0d0d; }
-.nail--nude   { --c1: #e8c6ad; --c2: #c99f86; }
-.nail--marble {
-  background:
-    radial-gradient(ellipse 60% 8% at 30% 40%, rgba(40,40,40,.25), transparent 70%),
-    radial-gradient(ellipse 50% 6% at 70% 65%, rgba(40,40,40,.2), transparent 70%),
-    radial-gradient(ellipse 40% 5% at 45% 80%, rgba(180,150,110,.5), transparent 70%),
-    linear-gradient(160deg, #fbfaf8, #e9e5e2);
+.lightbox {
+  position: fixed; inset: 0; z-index: 95;
+  display: grid; grid-template-columns: 64px 1fr 64px; align-items: center;
+  background: rgba(14,14,14,.94);
+  animation: lbIn .4s var(--ease);
 }
-.nail--glitter {
-  background:
-    radial-gradient(circle at 20% 30%, #fff 0 1.5px, transparent 2px) 0 0 / 14px 14px,
-    radial-gradient(circle at 60% 70%, #fff6e0 0 1px, transparent 1.6px) 0 0 / 10px 10px,
-    linear-gradient(165deg, #e8d3ae, #b8955f);
-  animation: bob 6s ease-in-out infinite, sparkle 2.5s linear infinite;
+.lightbox[hidden] { display: none; }
+@keyframes lbIn { from { opacity: 0; } }
+.lightbox__stage { display: grid; place-items: center; height: 100svh; padding: 56px 0; }
+.lightbox__stage img, .lightbox__stage video {
+  max-width: 100%; max-height: calc(100svh - 112px); width: auto; height: auto; object-fit: contain;
+  animation: lbPop .5s var(--ease);
 }
-@keyframes sparkle { to { background-position: 14px 14px, -10px 10px, 0 0; } }
+@keyframes lbPop { from { opacity: 0; transform: scale(.94); } }
+.lightbox button { background: none; border: 0; color: #fff; }
+.lightbox__close { position: absolute; top: 10px; right: 14px; z-index: 2; width: 48px; height: 48px; font-size: 34px; line-height: 1; }
+.lightbox__nav { height: 64px; font-size: 26px; opacity: .7; transition: opacity .3s, transform .3s var(--ease); }
+.lightbox__nav:hover { opacity: 1; }
+.lightbox__nav--prev:hover { transform: translateX(-4px); }
+.lightbox__nav--next:hover { transform: translateX(4px); }
+.lightbox__count { position: absolute; left: 0; right: 0; bottom: 18px; margin: 0; text-align: center; color: rgba(255,255,255,.6); font-size: 12px; letter-spacing: .2em; }
+@media (max-width: 560px) {
+  .lightbox { grid-template-columns: 1fr; }
+  .lightbox__stage { padding: 56px 8px; }
+  .lightbox__nav { position: absolute; bottom: 4px; z-index: 2; }
+  .lightbox__nav--prev { left: 12px; }
+  .lightbox__nav--next { right: 12px; }
+}
 
 /* ---------- About ---------- */
 .about { overflow-x: clip; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 8vw, 120px); align-items: center; max-width: 1200px; margin: 0 auto; }

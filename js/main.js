@@ -47,8 +47,27 @@ const REVIEWS = [
   { name: "Zoi Parsalidou", src: "Google", text: "⭐️⭐️⭐️⭐️⭐️" },
 ];
 
+/* ---- Our work: photos and videos from the studio (files in assets/work) ---- */
+const WORK = [
+  { img: "assets/work/p01.jpg", w: 1000, h: 1086, alt: "Nude almond gel nails" },
+  { video: "assets/work/v01.mp4", poster: "assets/work/v01.jpg", w: 720, h: 1280, alt: "Manicure in progress at the studio" },
+  { img: "assets/work/p02.jpg", w: 1000, h: 1777, alt: "Hand-painted cartoon nail art" },
+  { video: "assets/work/v05.mp4", poster: "assets/work/v05.jpg", w: 720, h: 1280, alt: "Nude almond nails with gold details" },
+  { img: "assets/work/p03.jpg", w: 1000, h: 1777, alt: "Almond French manicure" },
+  { video: "assets/work/v06.mp4", poster: "assets/work/v06.jpg", w: 720, h: 1280, alt: "Green holographic nails" },
+  { img: "assets/work/p04.jpg", w: 1000, h: 1333, alt: "Ivory nails with gold starfish nail art" },
+  { video: "assets/work/v02.mp4", poster: "assets/work/v02.jpg", w: 720, h: 1280, alt: "Shaping long almond nails" },
+  { img: "assets/work/p05.jpg", w: 1000, h: 1777, alt: "Natural, clean manicure" },
+  { video: "assets/work/v04.mp4", poster: "assets/work/v04.jpg", w: 720, h: 1280, alt: "Black glitter and nude nails" },
+  { img: "assets/work/p06.jpg", w: 1000, h: 1508, alt: "Purple chrome nails" },
+  { video: "assets/work/v08.mp4", poster: "assets/work/v08.jpg", w: 720, h: 1280, alt: "Glitter gel colours" },
+  { video: "assets/work/v03.mp4", poster: "assets/work/v03.jpg", w: 720, h: 1280, alt: "Dark chrome nails" },
+  { video: "assets/work/v07.mp4", poster: "assets/work/v07.jpg", w: 720, h: 1280, alt: "Applying gel colour" },
+  { video: "assets/work/v09.mp4", poster: "assets/work/v09.jpg", w: 720, h: 1280, alt: "Nail preparation with an e-file" },
+];
+
 (() => {
-  const $ = (s, el = document) => el.querySelector(s);
+  const $ =(s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -90,6 +109,64 @@ const REVIEWS = [
     requestAnimationFrame(tick);
   }), { threshold: 0.6 });
   $$(".rating").forEach(el => countIO.observe(el));
+
+  /* ---------- Our work: photo/video grid + lightbox ---------- */
+  const worksEl = $(".works");
+  worksEl.innerHTML = WORK.map((w, i) => `
+    <button class="work reveal" style="--d:${i % 3}" data-i="${i}" aria-label="${w.alt} — view larger">
+      ${w.video
+        ? `<video muted loop playsinline preload="none" poster="${w.poster}" width="${w.w}" height="${w.h}" aria-hidden="true"><source src="${w.video}" type="video/mp4"></video><span class="work__badge" aria-hidden="true">▶</span>`
+        : `<img src="${w.img}" alt="" width="${w.w}" height="${w.h}" loading="lazy" decoding="async">`}
+      <span class="work__zoom" aria-hidden="true">View +</span>
+    </button>`).join("");
+
+  // play grid videos only while they are on screen
+  const vidIO = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting && !reduceMotion) e.target.play().catch(() => {});
+    else e.target.pause();
+  }), { threshold: 0.25 });
+  $$("video", worksEl).forEach(v => vidIO.observe(v));
+
+  const lb = $(".lightbox"), stage = $(".lightbox__stage"), lbCount = $(".lightbox__count");
+  let lbIndex = 0, lastFocus = null;
+  const showWork = i => {
+    lbIndex = (i + WORK.length) % WORK.length;
+    const w = WORK[lbIndex];
+    stage.innerHTML = w.video
+      ? `<video src="${w.video}" poster="${w.poster}" muted loop playsinline autoplay aria-label="${w.alt}"></video>`
+      : `<img src="${w.img}" alt="${w.alt}">`;
+    lbCount.textContent = `${lbIndex + 1} / ${WORK.length}`;
+  };
+  const openLb = i => {
+    lastFocus = document.activeElement;
+    showWork(i);
+    lb.hidden = false;
+    document.body.style.overflow = "hidden";
+    $(".lightbox__close").focus();
+  };
+  const closeLb = () => {
+    lb.hidden = true; stage.innerHTML = "";
+    document.body.style.overflow = "";
+    lastFocus && lastFocus.focus();
+  };
+  worksEl.addEventListener("click", e => { const b = e.target.closest(".work"); if (b) openLb(+b.dataset.i); });
+  $(".lightbox__close").addEventListener("click", closeLb);
+  $(".lightbox__nav--prev").addEventListener("click", () => showWork(lbIndex - 1));
+  $(".lightbox__nav--next").addEventListener("click", () => showWork(lbIndex + 1));
+  lb.addEventListener("click", e => { if (e.target === lb || e.target === stage) closeLb(); });
+  addEventListener("keydown", e => {
+    if (lb.hidden) return;
+    if (e.key === "Escape") closeLb();
+    if (e.key === "ArrowLeft") showWork(lbIndex - 1);
+    if (e.key === "ArrowRight") showWork(lbIndex + 1);
+  });
+  let touchX = null;
+  lb.addEventListener("touchstart", e => { touchX = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener("touchend", e => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+    if (Math.abs(dx) > 50) showWork(lbIndex + (dx < 0 ? 1 : -1));
+  });
 
   /* ---------- Live opening hours ---------- */
   const toMin = t => { const [h, m] = t.split(":").map(Number); return h * 60 + m; };
