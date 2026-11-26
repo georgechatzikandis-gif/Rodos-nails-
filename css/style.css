@@ -770,6 +770,7 @@ a.rating:hover { border-color: var(--ink); transform: translateY(-5px); }
 .fab__icon svg { width: 24px; height: 24px; }
 .fab__icon--wa { background: #25d366; }
 .fab__icon--tw { background: var(--ink); }
+.fab__icon--shop { background: var(--rose); }
 .fab__item:hover .fab__icon, .fab__item:focus-visible .fab__icon { transform: scale(1.1); }
 .fab__item:hover .fab__label, .fab__item:focus-visible .fab__label { background: var(--ink); color: #fff; }
 @keyframes waPulse { from { transform: scale(1); opacity: .5; } to { transform: scale(1.7); opacity: 0; } }
