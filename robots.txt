@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /tools/
 
-Sitemap: https://rodos-nails.pages.dev/sitemap.xml
+Sitemap: https://magnails.gr/sitemap.xml
