@@ -23,10 +23,30 @@ COMMON = [
 ]
 
 INDEX = [
-    ('<title>MAG Nails &amp; Beauty Shop</title>', '<title>MAG Nails &amp; Beauty Shop · Νύχια, φρύδια &amp; βλεφαρίδες στη Ρόδο</title>'),
-    ('content="MAG Nails & Beauty Shop — manicure, pedicure, gel, nail art and beauty treatments."',
-     'content="MAG Nails &amp; Beauty Shop στη Ρόδο: μανικιούρ, πεντικιούρ, ημιμόνιμο, rubber base, nail art, μόνιμο μακιγιάζ φρυδιών και χειλιών, lash lift. Κλείστε ραντεβού online."'),
-    ('<meta property="og:title" content="MAG Nails &amp; Beauty Shop · Rhodes" />', '<meta property="og:title" content="MAG Nails &amp; Beauty Shop · Ρόδος" />'),
+    # SEO: titles, descriptions, schema, FAQ
+    ('<title>MAG Nails Rhodes · Nail Salon, Manicure &amp; Permanent Brows</title>', '<title>MAG Nails Ρόδος · Νύχια, Μανικιούρ, Πεντικιούρ &amp; Μόνιμα Φρύδια</title>'),
+    ('content="Nail salon in Rhodes Town, Greece. Manicure, gel polish, rubber base, nail art, pedicure, permanent brows, lip blush, lash lift &amp; brow lamination. Rated 5/5. Book online."', 'content="Κέντρο νυχιών και ομορφιάς στη Ρόδο. Μανικιούρ, ημιμόνιμο, rubber base, nail art, πεντικιούρ, μόνιμα φρύδια, ημιμόνιμο χειλιών, lash lift &amp; brow lamination. 5/5 κριτικές. Κλείστε online."'),
+    ('<meta property="og:title" content="MAG Nails &amp; Beauty Shop · Nail Salon in Rhodes" />', '<meta property="og:title" content="MAG Nails &amp; Beauty Shop · Νύχια στη Ρόδο" />'),
+    ('<meta name="geo.placename" content="Rhodes" />', '<meta name="geo.placename" content="Ρόδος" />'),
+    ('"description": "Nail salon and beauty shop in Rhodes, Greece: manicure, gel polish, rubber base, nail art, pedicure, permanent brows, semi-permanent lip make-up, lash lift and brow lamination."', '"description": "Κέντρο νυχιών και ομορφιάς στη Ρόδο: μανικιούρ, ημιμόνιμο, rubber base, nail art, πεντικιούρ, μόνιμα φρύδια, ημιμόνιμο μακιγιάζ χειλιών, lash lift και brow lamination."'),
+    ('"url": "https://magnails.gr/",', '"url": "https://magnails.gr/el/",'),
+    ('<p class="eyebrow hero__eyebrow">Nail &amp; beauty salon · Rhodes</p>', '<p class="eyebrow hero__eyebrow">Νύχια &amp; ομορφιά · Ρόδος</p>'),
+    ('Precision manicures, flawless gel and hand-painted nail art in a calm, modern studio in the heart of Rhodes.', 'Μανικιούρ ακριβείας, άψογο ημιμόνιμο και ζωγραφισμένο nail art σε ένα ήρεμο, μοντέρνο studio στην καρδιά της Ρόδου.'),
+    ('<p class="eyebrow reveal">FAQ · Nail salon in Rhodes</p>', '<p class="eyebrow reveal">Συχνές ερωτήσεις · Νύχια στη Ρόδο</p>'),
+    ('Frequently asked <em>questions</em></h2>', 'Συχνές <em>ερωτήσεις</em></h2>'),
+    ('<li><a href="#faq">FAQ</a></li>', '<li><a href="#faq">Συχνές ερωτήσεις</a></li>'),
+    ('Where is MAG Nails in Rhodes?', 'Πού βρίσκεται το MAG Nails στη Ρόδο;'),
+    ('MAG Nails and Beauty Shop is a nail and beauty salon at Alexandrou Papadiamanti 4 in Rhodes Town, on the island of Rhodes, Greece.', 'Το MAG Nails and Beauty Shop είναι κέντρο νυχιών και ομορφιάς στην Αλεξάνδρου Παπαδιαμάντη 4, στην πόλη της Ρόδου.'),
+    ('Which nail and beauty services do you offer in Rhodes?', 'Ποιες υπηρεσίες νυχιών και ομορφιάς προσφέρετε στη Ρόδο;'),
+    ('Manicure, gel polish and rubber base manicure, gel and acrygel nail reinforcement, nail art, pedicure and foot treatments, permanent brows (powder brows), semi-permanent lip make-up, lash lift and tint, brow lamination and waxing.', 'Μανικιούρ, ημιμόνιμο και rubber base, ενίσχυση νυχιών με gel και acrygel, nail art, πεντικιούρ και θεραπείες ποδιών, μόνιμα φρύδια (powder brows), ημιμόνιμο μακιγιάζ χειλιών, lash lift και βαφή βλεφαρίδων, brow lamination και αποτρίχωση.'),
+    ('How do I book a nail appointment in Rhodes?', 'Πώς κλείνω ραντεβού για νύχια στη Ρόδο;'),
+    ('Book online through Treatwell at any time, day or night. You can also call +30 22410 69344 or send a WhatsApp message to +30 6955 36 9825.', 'Κλείστε online μέσω Treatwell, οποιαδήποτε ώρα, μέρα ή νύχτα. Μπορείτε επίσης να καλέσετε στο 22410 69344 ή να στείλετε μήνυμα στο WhatsApp στο 6955 36 9825.'),
+    ('Do you do permanent make-up for brows and lips in Rhodes?', 'Κάνετε μόνιμο μακιγιάζ φρυδιών και χειλιών στη Ρόδο;'),
+    ('Yes. Every permanent brow is designed from scratch to suit your face. We offer powder brows, cover-ups of old brow tattoos and semi-permanent lip blush, with a touch-up after healing.', 'Ναι. Κάθε μόνιμο φρύδι σχεδιάζεται από την αρχή για το πρόσωπό σας. Κάνουμε powder brows, κάλυψη παλιού τατουάζ φρυδιών και ημιμόνιμο μακιγιάζ χειλιών (lip blush), με διόρθωση μετά την επούλωση.'),
+    ('Do you offer pedicure and treatments for cracked heels?', 'Κάνετε πεντικιούρ και θεραπεία για σκασμένες φτέρνες;'),
+    ('Yes. Our pedicure treatment removes dry skin and cracked heels and leaves your feet soft and hydrated. We also treat ingrown nails, calluses, corns and thickened nails.', 'Ναι. Το θεραπευτικό πεντικιούρ αφαιρεί το ξηρό δέρμα και τις σκασμένες φτέρνες και αφήνει τα πόδια απαλά και ενυδατωμένα. Αντιμετωπίζουμε επίσης νύχια που μπαίνουν στο δέρμα, κάλους, κότσια και παχιά νύχια.'),
+    ('What are your opening hours?', 'Ποιο είναι το ωράριο λειτουργίας;'),
+    ('Monday to Thursday 09:00 to 20:00, Friday 12:00 to 20:00, Saturday 09:00 to 17:00. Closed on Sunday.', 'Δευτέρα έως Πέμπτη 09:00 έως 20:00, Παρασκευή 12:00 έως 20:00, Σάββατο 09:00 έως 17:00. Κυριακή κλειστά.'),
     ('content="Nails, pedicure, permanent brows, lashes and lips in Rhodes. Book online."', 'content="Νύχια, πεντικιούρ, μόνιμα φρύδια, βλεφαρίδες και χείλη στη Ρόδο. Κλείστε ραντεβού online."'),
     ('<link rel="canonical" href="https://magnails.gr/" />', '<link rel="canonical" href="https://magnails.gr/el/" />'),
     ('<meta property="og:url" content="https://magnails.gr/" />', '<meta property="og:url" content="https://magnails.gr/el/" />'),
@@ -48,10 +68,7 @@ INDEX = [
     ('<span>See our products</span>', '<span>Δείτε τα προϊόντα μας</span>'),
     ('>Visit e-shop ↗</a>', '>Στο e-shop ↗</a>'),
     # intro
-    ('<p class="eyebrow hero__eyebrow">Nails · Beauty · Care</p>', '<p class="eyebrow hero__eyebrow">Νύχια · Ομορφιά · Φροντίδα</p>'),
     ('Details that <em>speak</em> for you.</h1>', 'Λεπτομέρειες που <em>μιλούν</em> για εσάς.</h1>'),
-    ('Precision manicures, flawless gel and hand-painted nail art in a calm, modern studio.',
-     'Μανικιούρ ακριβείας, άψογο ημιμόνιμο και ζωγραφισμένο nail art σε ένα ήρεμο, μοντέρνο studio.'),
     ('>Book online</a>', '>Κλείστε online</a>'), ('>See the menu</a>', '>Δείτε τις υπηρεσίες</a>'),
     ('>Find our products</a>', '>Τα προϊόντα μας</a>'),
     ('aria-label="Book now on Treatwell"', 'aria-label="Κλείστε ραντεβού στο Treatwell"'),
@@ -196,7 +213,7 @@ INDEX = [
 ]
 
 PRODUCTS = [
-    ('<title>Our Products · MAG Nails</title>', '<title>Τα προϊόντα μας · MAG Nails Ρόδος</title>'),
+    ('<title>Ritzy Nails Products in Rhodes · Builder Gel, Base &amp; Gel Polish · MAG Nails</title>', '<title>Προϊόντα Ritzy Nails στη Ρόδο · Builder Gel, Βάσεις &amp; Ημιμόνιμα · MAG Nails</title>'),
     ('<link rel="canonical" href="https://magnails.gr/products.html" />', '<link rel="canonical" href="https://magnails.gr/el/products.html" />'),
     ('<meta property="og:url" content="https://magnails.gr/products.html" />', '<meta property="og:url" content="https://magnails.gr/el/products.html" />'),
     ('<meta property="og:title" content="Our Products · MAG Nails &amp; Beauty Shop" />', '<meta property="og:title" content="Τα προϊόντα μας · MAG Nails &amp; Beauty Shop" />'),

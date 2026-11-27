@@ -958,3 +958,19 @@ a.rating:hover { border-color: var(--ink); transform: translateY(-5px); }
 .wa-float, .wa-float.is-visible { pointer-events: none; }
 .wa-float.is-visible .fab__toggle { pointer-events: auto; }
 .wa-float.is-visible.is-open .fab__menu { pointer-events: auto; }
+
+/* ---------- FAQ ---------- */
+.faq__list { max-width: 860px; margin: 0 auto; display: grid; gap: 12px; }
+.faq__item { background: #fff; border: 1px solid var(--line); transition: border-color .4s, box-shadow .4s; }
+.faq__item[open] { border-color: transparent; box-shadow: 0 30px 60px -45px rgba(22,22,22,.45); }
+.faq__item summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 24px; cursor: pointer; list-style: none; }
+.faq__item summary::-webkit-details-marker { display: none; }
+.faq__item h3 { margin: 0; font-family: var(--f-serif); font-weight: 500; font-size: clamp(20px, 2.4vw, 25px); line-height: 1.25; }
+.faq__icon { position: relative; flex: none; width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 50%; transition: background .4s, transform .5s var(--ease); }
+.faq__icon::before, .faq__icon::after { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 1.5px; margin: -.75px 0 0 -6px; background: var(--ink); transition: transform .5s var(--ease), background .4s; }
+.faq__icon::after { transform: rotate(90deg); }
+.faq__item[open] .faq__icon { background: var(--ink); transform: rotate(180deg); }
+.faq__item[open] .faq__icon::before, .faq__item[open] .faq__icon::after { background: var(--paper); }
+.faq__item[open] .faq__icon::after { transform: rotate(0deg); }
+.faq__item p { margin: 0; padding: 0 24px 24px; color: var(--ink-soft); animation: faqIn .5s var(--ease); }
+@keyframes faqIn { from { opacity: 0; transform: translateY(-6px); } }
