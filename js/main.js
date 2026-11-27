@@ -75,12 +75,17 @@ const WORK = [
 /* ---- Brows & lashes results (files in assets/brows)
    tags: "tattoo" = permanent brows, "ba" = before & after, "lash" = lash lift / lamination ---- */
 const BROWS = [
+  { img: "assets/brows/b19.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], alt: "Powder brows, before and after" },
+  { video: "assets/brows/v02.mp4", poster: "assets/brows/v02.jpg", w: 720, h: 1280, tags: ["tattoo"], alt: "Powder brows close-up" },
+  { img: "assets/brows/b17.jpg", w: 1000, h: 1000, tags: ["ba"], alt: "Brow lamination, before and after" },
+  { img: "assets/brows/b18.jpg", w: 1000, h: 1250, tags: ["tattoo"], alt: "Healed powder brows, close-up" },
+  { video: "assets/brows/v01.mp4", poster: "assets/brows/v01.jpg", w: 720, h: 1280, tags: ["ba"], alt: "Lash lift and brow lamination, before and after" },
+  { img: "assets/brows/b16.jpg", w: 1000, h: 1000, tags: ["ba"], alt: "Lash lift and brow lamination, before and after" },
   { img: "assets/brows/b01.jpg", w: 1000, h: 1248, tags: ["tattoo"], alt: "Powder brows, close-up" },
   { img: "assets/brows/b05.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], alt: "Brow mapping before, permanent brows after" },
   { img: "assets/brows/b07.jpg", w: 1000, h: 1000, tags: ["tattoo"], alt: "Collection of permanent brow results" },
   { img: "assets/brows/b12.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], alt: "Cover-up of an old brow tattoo, before and after" },
   { img: "assets/brows/b08.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], alt: "Permanent brows, before and after" },
-  { img: "assets/brows/b15.jpg", w: 1000, h: 1776, tags: ["tattoo"], alt: "Fresh powder brows" },
   { img: "assets/brows/b06.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], alt: "Permanent brows, before and after" },
   { img: "assets/brows/b09.jpg", w: 1000, h: 1250, tags: ["tattoo", "ba"], alt: "Before and healed result before touch-up" },
 ];
