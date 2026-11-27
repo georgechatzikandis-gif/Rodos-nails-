@@ -905,3 +905,17 @@ a.rating:hover { border-color: var(--ink); transform: translateY(-5px); }
 .scroll-down__mouse { transition: transform .4s var(--ease); }
 @keyframes sdWheel { 0% { opacity: 0; transform: translateY(-3px); } 30% { opacity: 1; } 70% { opacity: 1; transform: translateY(10px); } 100% { opacity: 0; transform: translateY(12px); } }
 @keyframes sdChev { 0%, 100% { opacity: .25; transform: translateY(-3px); } 50% { opacity: 1; transform: translateY(3px); } }
+
+/* ---------- Ritzy nails logo on the products page ---------- */
+.phero__brand { display: flex; align-items: center; justify-content: center; gap: clamp(16px, 3vw, 34px); margin: 0 auto 30px; }
+.phero__mag { width: clamp(120px, 18vw, 190px); color: var(--ink); }
+.phero__x { font-family: var(--f-serif); font-size: clamp(28px, 4vw, 44px); color: var(--rose); line-height: 1; }
+.phero__ritzy { width: clamp(170px, 26vw, 300px); color: var(--ink); overflow: visible; }
+.pcta__ritzy { display: block; width: clamp(150px, 20vw, 220px); margin: 0 auto 26px; color: var(--paper); overflow: visible; }
+.ritzy-anim .rz-r { stroke-dasharray: var(--len, 200); stroke-dashoffset: var(--len, 200); }
+.ritzy-anim :is(.rz-itzy, .rz-nails, .rz-reg) { opacity: 0; transform: translateY(14px); transform-box: fill-box; }
+.ritzy-anim.is-drawn .rz-r { animation: draw 1s var(--ease-in-out) forwards; }
+.ritzy-anim.is-drawn .rz-itzy { animation: logoRise .9s var(--ease) .35s forwards; }
+.ritzy-anim.is-drawn .rz-nails { animation: logoRise .9s var(--ease) .65s forwards; }
+.ritzy-anim.is-drawn .rz-reg { animation: logoRise .6s var(--ease) .95s forwards; }
+.phero__x { opacity: 0; animation: logoRise .8s var(--ease) .2s forwards; transform: translateY(10px); }

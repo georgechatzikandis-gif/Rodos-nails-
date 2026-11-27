@@ -21,6 +21,8 @@ const PRODUCTS = [
   { cat: "lac", name: "Ritzy Gel Polish · Mint", type: "Gel Polish", text: "A fresh pastel mint shade.", video: "assets/products/v01.mp4", poster: "assets/products/v01.jpg" },
   { cat: "lac", name: "Ritzy Gel Polish · Pink", type: "Gel Polish", text: "A soft candy pink shade.", video: "assets/products/v02.mp4", poster: "assets/products/v02.jpg" },
   { cat: "lac", name: "Ritzy Glitter Gel Polish", type: "Gel Polish", text: "A sparkling ocean-blue glitter.", video: "assets/products/v07.mp4", poster: "assets/products/v07.jpg" },
+  { cat: "lac", name: "Glitter Gel Polish · 51–59", type: "Gel Polish", text: "Sparkling glitter shades from berry and plum to deep blue and green.", video: "assets/products/v10.mp4", poster: "assets/products/v10.jpg" },
+  { cat: "lac", name: "Alice in Wonderland Collection", type: "Ritzy LAC Gel Polish", text: "Galaxy glitter shades 316, 319 and 320 with a deep, shimmering finish.", video: "assets/products/v11.mp4", poster: "assets/products/v11.jpg" },
   { cat: "lac", name: "Ritzy LAC · Nude", type: "Gel Polish", text: "A milky nude for clean, everyday nails.", video: "assets/products/v08.mp4", poster: "assets/products/v08.jpg" },
 ];
 
@@ -34,12 +36,17 @@ const PRODUCTS = [
   $("#year").textContent = new Date().getFullYear();
 
   /* logo: inline the symbol so it renders everywhere */
-  const symbol = $("#logo");
-  $$("svg use[href='#logo']").forEach(use => {
-    const svg = use.ownerSVGElement;
-    symbol.childNodes.forEach(n => svg.appendChild(n.cloneNode(true)));
-    use.remove();
+  ["logo", "ritzy"].forEach(id => {
+    const symbol = $("#" + id);
+    $$(`svg use[href='#${id}']`).forEach(use => {
+      const svg = use.ownerSVGElement;
+      symbol.childNodes.forEach(n => svg.appendChild(n.cloneNode(true)));
+      use.remove();
+    });
   });
+  // Ritzy logo draws itself in: the R is stroked on, then the letters rise
+  $$(".ritzy-anim .rz-r").forEach(p => p.style.setProperty("--len", Math.ceil(p.getTotalLength()) + 2));
+  requestAnimationFrame(() => setTimeout(() => $$(".ritzy-anim").forEach(s => s.classList.add("is-drawn")), 200));
 
   /* split headings into words for the reveal */
   $$(".split").forEach(el => {
