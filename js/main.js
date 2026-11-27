@@ -510,6 +510,43 @@ const T = {
   if (reduceMotion) { video.autoplay = false; video.pause(); }
   else video.play().catch(() => {}); // some browsers need a nudge even when muted
 
+  /* ---------- Keep videos playing after the page comes back (iPhone) ----------
+     iOS Safari pauses every video when you switch app/tab or lock the phone, and
+     does not resume them when you return (also when the page is restored from the
+     back/forward cache). Here every autoplaying video is tracked while on screen
+     and restarted on return; a video that is stuck is reloaded from the start. */
+  const onScreen = new Set();
+  const autoVideos = $$("video").filter(v => v.muted && v.loop && !v.closest(".lightbox"));
+  const visIO = new IntersectionObserver(entries => entries.forEach(e => {
+    e.isIntersecting ? onScreen.add(e.target) : onScreen.delete(e.target);
+  }), { threshold: 0.05 });
+  autoVideos.forEach(v => {
+    visIO.observe(v);
+    v.loop = true;
+    // some iOS versions ignore `loop` after a background pause: restart by hand
+    v.addEventListener("ended", () => { v.currentTime = 0; v.play().catch(() => {}); });
+  });
+  const kick = (v, attempt = 0) => {
+    if (reduceMotion || document.hidden) return;
+    const stuck = v.error || v.networkState === HTMLMediaElement.NETWORK_NO_SOURCE || (v.readyState < 2 && attempt > 0);
+    if (stuck) { const t = v.currentTime; v.load(); try { v.currentTime = t; } catch (e) {} }
+    v.play().then(() => {
+      // played but frozen on the same frame? reload once more
+      const t0 = v.currentTime;
+      setTimeout(() => { if (!document.hidden && v.currentTime === t0 && attempt < 2) kick(v, attempt + 1); }, 1200);
+    }).catch(() => { if (attempt < 2) setTimeout(() => kick(v, attempt + 1), 400); });
+  };
+  const resumeVideos = () => {
+    if (document.hidden) return;
+    const list = new Set(onScreen);
+    if (video.getBoundingClientRect().bottom > 0) list.add(video); // hero is the one people see on return
+    list.forEach(v => kick(v));
+  };
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) setTimeout(resumeVideos, 150); });
+  addEventListener("pageshow", e => { if (e.persisted) setTimeout(resumeVideos, 150); });
+  addEventListener("focus", () => setTimeout(resumeVideos, 150));
+  video.addEventListener("stalled", () => { if (!video.paused) return; kick(video, 1); });
+
   /* ---------- Intro (logo + headline) plays when scrolled into view ---------- */
   const intro = $(".hero");
   const introIO = new IntersectionObserver(([e]) => {
