@@ -330,15 +330,36 @@ const T = {
       ba.style.setProperty("--pos", v + "%");
       ba.dataset.side = v < 8 ? "after" : v > 92 ? "before" : "";
     };
-    range.addEventListener("input", () => set(+range.value));
-    ["pointerdown", "touchstart"].forEach(t => range.addEventListener(t, () => ba.classList.add("is-dragging"), { passive: true }));
-    ["pointerup", "pointercancel", "touchend", "blur"].forEach(t => range.addEventListener(t, () => ba.classList.remove("is-dragging")));
-    // tapping anywhere jumps the bar there (range inputs ignore taps on some phones)
-    ba.addEventListener("click", e => {
+    range.addEventListener("input", () => set(+range.value)); // keyboard (arrow keys)
+
+    // drag anywhere on the photo with finger, mouse or touchpad
+    let dragging = false, startX = 0, startY = 0, decided = false;
+    const fromEvent = e => {
       const r = ba.getBoundingClientRect();
-      const v = Math.max(0, Math.min(100, ((e.clientX - r.left) / r.width) * 100));
-      range.value = v; set(v);
+      return Math.max(0, Math.min(100, ((e.clientX - r.left) / r.width) * 100));
+    };
+    const move = e => { const v = fromEvent(e); range.value = v; set(v); };
+    ba.addEventListener("pointerdown", e => {
+      if (e.button > 0) return;
+      dragging = true; decided = e.pointerType !== "touch"; startX = e.clientX; startY = e.clientY;
+      ba.classList.add("is-dragging");
+      if (decided) { ba.setPointerCapture(e.pointerId); move(e); e.preventDefault(); }
     });
+    ba.addEventListener("pointermove", e => {
+      if (!dragging) return;
+      if (!decided) { // on touch: a sideways swipe moves the bar, an up/down swipe scrolls the page
+        const dx = Math.abs(e.clientX - startX), dy = Math.abs(e.clientY - startY);
+        if (dx < 6 && dy < 6) return;
+        if (dy > dx) { dragging = false; ba.classList.remove("is-dragging"); return; }
+        decided = true; ba.setPointerCapture(e.pointerId);
+      }
+      move(e);
+    });
+    const end = e => {
+      if (dragging && !decided && e.type === "pointerup") move(e); // a quick tap jumps the bar there
+      dragging = false; ba.classList.remove("is-dragging");
+    };
+    ["pointerup", "pointercancel", "lostpointercapture"].forEach(t => ba.addEventListener(t, end));
     // when it first appears, sweep the bar once so people see it can move
     if (!reduceMotion) {
       new IntersectionObserver(([e], obs) => {
