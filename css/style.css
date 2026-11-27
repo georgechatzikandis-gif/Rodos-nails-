@@ -885,3 +885,23 @@ a.rating:hover { border-color: var(--ink); transform: translateY(-5px); }
 .pfooter { display: grid; justify-items: center; gap: 14px; padding: 40px var(--gutter); background: var(--ink); color: var(--paper); border-top: 1px solid rgba(255,255,255,.1); }
 .pfooter__logo svg { width: 160px; color: var(--paper); }
 .pfooter p { margin: 0; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; opacity: .55; }
+
+/* ---------- Scroll-down cue on the hero video ---------- */
+.scroll-down {
+  position: absolute; left: 50%; bottom: clamp(22px, 5vh, 44px); z-index: 2;
+  display: grid; justify-items: center; gap: 8px; translate: -50% 0;
+  color: #fff; filter: drop-shadow(0 2px 8px rgba(0,0,0,.45));
+  opacity: 0; transform: translateY(14px); transition: opacity 1s var(--ease), transform 1s var(--ease);
+}
+.is-loaded .scroll-down { opacity: 1; transform: none; transition-delay: 2.4s; }
+.scroll-down.is-gone { opacity: 0 !important; transition-delay: 0s; pointer-events: none; }
+.scroll-down__mouse { position: relative; width: 26px; height: 42px; border: 2px solid currentColor; border-radius: 14px; }
+.scroll-down__wheel { position: absolute; left: 50%; top: 7px; width: 4px; height: 8px; margin-left: -2px; border-radius: 2px; background: currentColor; animation: sdWheel 1.8s var(--ease) infinite; }
+.scroll-down__chev { display: grid; justify-items: center; }
+.scroll-down__chev i { display: block; width: 10px; height: 10px; margin-top: -4px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; rotate: 45deg; animation: sdChev 1.8s ease-in-out infinite; }
+.scroll-down__chev i:nth-child(2) { animation-delay: .2s; }
+.scroll-down__text { font-size: 10px; font-weight: 500; letter-spacing: .35em; text-transform: uppercase; padding-left: .35em; }
+.scroll-down:hover .scroll-down__mouse { transform: scale(1.08); }
+.scroll-down__mouse { transition: transform .4s var(--ease); }
+@keyframes sdWheel { 0% { opacity: 0; transform: translateY(-3px); } 30% { opacity: 1; } 70% { opacity: 1; transform: translateY(10px); } 100% { opacity: 0; transform: translateY(12px); } }
+@keyframes sdChev { 0%, 100% { opacity: .25; transform: translateY(-3px); } 50% { opacity: 1; transform: translateY(3px); } }

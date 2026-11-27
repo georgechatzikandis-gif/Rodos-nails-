@@ -541,6 +541,7 @@ const LIPS = [
   const blobs = $$(".blob");
   const videoHero = $(".video-hero");
   const waFloat = $(".wa-float");
+  const scrollCue = $(".scroll-down");
   // floating contact button opens a small menu: WhatsApp or Treatwell
   const fabToggle = $(".fab__toggle");
   const setFab = open => {
@@ -567,7 +568,8 @@ const LIPS = [
     const vh = videoHero.offsetHeight;
     if (!nav.classList.contains("is-open")) nav.classList.toggle("is-hidden", y < vh - 80 || (y > lastY && y > vh + 400));
     const fr = bookCard.getBoundingClientRect(); // keep the Treatwell button clear
-    const showFab = y > vh - 80 && !(fr.top < innerHeight && fr.bottom > 0);
+    scrollCue.classList.toggle("is-gone", y > 60);
+    const showFab =y > vh - 80 && !(fr.top < innerHeight && fr.bottom > 0);
     waFloat.classList.toggle("is-visible", showFab);
     if (!showFab) setFab(false);
     lastY = y;
