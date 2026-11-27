@@ -179,6 +179,11 @@ INDEX = [
     ('<span class="fab__label">Book online</span>', '<span class="fab__label">Κλείστε online</span>'),
     ('<span class="fab__label">Message on WhatsApp</span>', '<span class="fab__label">Μήνυμα στο WhatsApp</span>'),
     ('aria-label="Contact us or book an appointment"', 'aria-label="Επικοινωνήστε ή κλείστε ραντεβού"'),
+    # google review buttons
+    ('<span>Leave us a review</span>', '<span>Γράψτε μας κριτική</span>'),
+    ('<p>Been to MAG? We would love to hear from you.</p>', '<p>Ήρθατε στο MAG; Θα χαρούμε πολύ να μας πείτε τη γνώμη σας.</p>'),
+    ('<span>Write a Google review</span>', '<span>Γράψτε κριτική στη Google</span>'),
+    ('<span>Leave a review</span>', '<span>Γράψτε κριτική</span>'),
     # footer
     ('Nails · Brows · Lashes · Lips · Pedicure ·', 'Νύχια · Φρύδια · Βλεφαρίδες · Χείλη · Πεντικιούρ ·'),
     ('Nails, brows, lashes &amp; semi-permanent make-up in the heart of Rhodes.', 'Νύχια, φρύδια, βλεφαρίδες &amp; ημιμόνιμο μακιγιάζ στην καρδιά της Ρόδου.'),

@@ -939,3 +939,13 @@ a.rating:hover { border-color: var(--ink); transform: translateY(-5px); }
   .nav__links { gap: clamp(14px, 1.5vw, 26px); }
   .nav__links a:not(.btn):not(.lang-switch) { font-size: 11px; letter-spacing: .12em; }
 }
+
+/* ---------- Google review buttons ---------- */
+.hero__links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 28px; }
+.hero__review svg { color: #e2a93b; }
+.review-cta { display: grid; justify-items: center; gap: 14px; margin: -10px auto clamp(36px, 5vw, 56px); text-align: center; }
+.review-cta p { margin: 0; color: var(--ink-soft); }
+.btn--review { background: #fff; color: var(--ink); border-color: var(--line); }
+.btn--review svg, .btn--review-light svg { width: 18px; height: 18px; color: #e2a93b; transition: transform .5s var(--ease); }
+.btn--review:hover { border-color: var(--ink); }
+.btn--review:hover svg, .btn--review-light:hover svg { transform: rotate(72deg) scale(1.15); }

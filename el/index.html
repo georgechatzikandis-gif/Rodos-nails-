@@ -36,6 +36,9 @@
   <!-- Reusable logo -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
     <defs>
+      <symbol id="star-icon" viewBox="0 0 24 24">
+        <path d="M12 2.8l2.8 5.7 6.3.9-4.55 4.43 1.07 6.27L12 17.13 6.38 20.1l1.07-6.27L2.9 9.4l6.3-.9z" fill="currentColor" />
+      </symbol>
       <symbol id="ig-icon" viewBox="0 0 24 24">
         <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" />
         <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8" />
@@ -147,9 +150,14 @@
           <a href="#services" class="btn btn--ghost magnetic">Δείτε τις υπηρεσίες</a>
           <a href="#" class="btn btn--ghost magnetic" data-config="eshop" target="_blank" rel="noopener">Τα προϊόντα μας</a>
         </div>
-        <a class="hero__ig" data-config="instagram" href="#" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ig-icon" /></svg><span>@mag_nails_beautyshop</span>
-        </a>
+        <div class="hero__links">
+          <a class="hero__ig" data-config="instagram" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ig-icon" /></svg><span>@mag_nails_beautyshop</span>
+          </a>
+          <a class="hero__ig hero__review" data-config="review" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#star-icon" /></svg><span>Γράψτε μας κριτική</span>
+          </a>
+        </div>
       </div>
 
       <a href="#book" class="badge" data-config="treatwell" target="_blank" rel="noopener" aria-label="Κλείστε ραντεβού στο Treatwell">
@@ -429,6 +437,12 @@
           <span class="rating__count"><b data-count="195">195</b> κριτικές</span>
         </div>
       </div>
+      <div class="review-cta reveal">
+        <p>Ήρθατε στο MAG; Θα χαρούμε πολύ να μας πείτε τη γνώμη σας.</p>
+        <a class="btn btn--review magnetic" data-config="review" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#star-icon" /></svg><span>Γράψτε κριτική στη Google</span>
+        </a>
+      </div>
       <div class="rv-rows reveal">
         <div class="rv-row"><div class="rv-track"></div></div>
         <div class="rv-row rv-row--rev"><div class="rv-track"></div></div>
@@ -548,6 +562,7 @@
         <div class="footer__ctas">
           <a class="btn btn--light magnetic" data-config="treatwell" href="#" target="_blank" rel="noopener">Κλείστε online</a>
           <a class="btn btn--outline-light magnetic" data-config="eshop" href="#" target="_blank" rel="noopener">Τα προϊόντα μας</a>
+          <a class="btn btn--outline-light btn--review-light magnetic" data-config="review" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#star-icon" /></svg><span>Γράψτε κριτική</span></a>
         </div>
       </div>
 

@@ -6,6 +6,7 @@
 const CONFIG = {
   treatwell: "https://www.treatwell.gr/katasthma/mag-nails-beauty-shop/", // all bookings go here
   eshop: "http://ritzy-nails-greece.gr",  // online shop for products
+  review: "https://search.google.com/local/writereview?placeid=ChIJ-1dP485hlRQRLVePoJoS4gE", // Google "write a review"
   phones: ["+30 22410 69344", "+30 6955 36 9825"], // landline, mobile
   whatsapp: "+30 6955 36 9825",
   email: "",                           // leave empty to hide it
@@ -150,6 +151,7 @@ const T = {
   $$('[data-config="instagram"]').forEach(a => { a.href = CONFIG.instagram; });
   $$('[data-config="treatwell"]').forEach(a => { a.href = CONFIG.treatwell; });
   $$('[data-config="eshop"]').forEach(a => { a.href = CONFIG.eshop; });
+  $$('[data-config="review"]').forEach(a => { a.href = CONFIG.review; });
   $$('[data-config="whatsapp"]').forEach(a => { a.href = `https://wa.me/${CONFIG.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(T.hello)}`; });
   $$('[data-config="address"]').forEach(p => { p.innerHTML = CONFIG.address; });
   $("#year").textContent = new Date().getFullYear();
