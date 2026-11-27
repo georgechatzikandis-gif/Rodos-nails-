@@ -115,6 +115,23 @@ const LIPS = [
   { img: "assets/lips/l02.jpg", w: 922, h: 1152, tags: [], alt: "Soft red lip colour" },
 ];
 
+/* ---- Language: the Greek page (el/) sets <html lang="el" data-base="../"> ---- */
+const LANG = document.documentElement.lang === "el" ? "el" : "en";
+const BASE = document.documentElement.dataset.base || ""; // prefix for asset paths built in JS
+const T = {
+  en: { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], on: d => d,
+        closed: "Closed", openNow: "Open now", closingSoon: "Closing soon", closedNow: "Closed now",
+        todayUntil: t => `Today until ${t}`, closesIn: d => `Closes in ${d}`,
+        opens: (when, t) => `Opens ${when} at ${t}`, today: "today", tomorrow: "tomorrow", inDur: d => `in ${d}`,
+        d: "d", h: "h", min: "min", lessMin: "less than a minute", view: "View +", viewLarger: "view larger", hello: "Hello!" },
+  el: { days: ["Δευτέρα", "Τρίτη", "Τετάρτη", "Πέμπτη", "Παρασκευή", "Σάββατο", "Κυριακή"],
+        on: d => (d === "Σάββατο" ? "το " : "την ") + d,
+        closed: "Κλειστά", openNow: "Ανοιχτά τώρα", closingSoon: "Κλείνουμε σύντομα", closedNow: "Κλειστά τώρα",
+        todayUntil: t => `Σήμερα έως ${t}`, closesIn: d => `Κλείνουμε σε ${d}`,
+        opens: (when, t) => `Ανοίγουμε ${when} στις ${t}`, today: "σήμερα", tomorrow: "αύριο", inDur: d => `σε ${d}`,
+        d: "ημ.", h: "ώρ.", min: "λεπ.", lessMin: "λιγότερο από ένα λεπτό", view: "Προβολή +", viewLarger: "μεγέθυνση", hello: "Γεια σας!" },
+}[LANG];
+
 (() => {
   const $ =(s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -128,12 +145,12 @@ const LIPS = [
   $$('[data-config="instagram"]').forEach(a => { a.href = CONFIG.instagram; });
   $$('[data-config="treatwell"]').forEach(a => { a.href = CONFIG.treatwell; });
   $$('[data-config="eshop"]').forEach(a => { a.href = CONFIG.eshop; });
-  $$('[data-config="whatsapp"]').forEach(a => { a.href = `https://wa.me/${CONFIG.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent("Hello!")}`; });
+  $$('[data-config="whatsapp"]').forEach(a => { a.href = `https://wa.me/${CONFIG.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(T.hello)}`; });
   $$('[data-config="address"]').forEach(p => { p.innerHTML = CONFIG.address; });
   $("#year").textContent = new Date().getFullYear();
   const todayIdx = (new Date().getDay() + 6) % 7;
   $$('[data-config="hours-compact"]').forEach(ul => {
-    ul.innerHTML = CONFIG.hours.map(([d, h], i) => `<li class="${i === todayIdx ? "is-today" : ""}"><span>${d.slice(0, 3)}</span><span>${h ? h.join(" – ") : "Closed"}</span></li>`).join("");
+    ul.innerHTML = CONFIG.hours.map(([d, h], i) => `<li class="${i === todayIdx ? "is-today" : ""}"><span>${T.days[i].slice(0, 3)}</span><span>${h ? h.join(" – ") : T.closed}</span></li>`).join("");
   });
 
   /* ---------- Reviews: two rows of cards scrolling in opposite directions ---------- */
@@ -171,8 +188,8 @@ const LIPS = [
     lbIndex = (i + lbList.length) % lbList.length;
     const w = lbList[lbIndex];
     stage.innerHTML = w.video
-      ? `<video src="${w.video}" poster="${w.poster}" muted loop playsinline autoplay aria-label="${w.alt}"></video>`
-      : `<img src="${w.img}" alt="${w.alt}">`;
+      ? `<video src="${BASE}${w.video}" poster="${BASE}${w.poster}" muted loop playsinline autoplay aria-label="${w.alt}"></video>`
+      : `<img src="${BASE}${w.img}" alt="${w.alt}">`;
     lbCount.textContent = `${lbIndex + 1} / ${lbList.length}`;
   };
   const openLb = (list, i) => {
@@ -214,11 +231,11 @@ const LIPS = [
 
   const makeGallery = (root, list) => {
     root.innerHTML = list.map((w, i) => `
-      <button class="work reveal" style="--d:${i % 3}" data-i="${i}" aria-label="${w.alt} — view larger">
+      <button class="work reveal" style="--d:${i % 3}" data-i="${i}" aria-label="${w.alt} — ${T.viewLarger}">
         ${w.video
-          ? `<video muted loop playsinline preload="none" poster="${w.poster}" width="${w.w}" height="${w.h}" aria-hidden="true"><source src="${w.video}" type="video/mp4"></video><span class="work__badge" aria-hidden="true">▶</span>`
-          : `<img src="${w.img}" alt="" width="${w.w}" height="${w.h}" loading="lazy" decoding="async">`}
-        <span class="work__zoom" aria-hidden="true">View +</span>
+          ? `<video muted loop playsinline preload="none" poster="${BASE}${w.poster}" width="${w.w}" height="${w.h}" aria-hidden="true"><source src="${BASE}${w.video}" type="video/mp4"></video><span class="work__badge" aria-hidden="true">▶</span>`
+          : `<img src="${BASE}${w.img}" alt="" width="${w.w}" height="${w.h}" loading="lazy" decoding="async">`}
+        <span class="work__zoom" aria-hidden="true">${T.view}</span>
       </button>`).join("");
     const items = $$(".work", root);
     let shown = list.map((_, i) => i);
@@ -344,7 +361,7 @@ const LIPS = [
   const toMin = t => { const [h, m] = t.split(":").map(Number); return h * 60 + m; };
   const fmtDur = m => {
     const d = Math.floor(m / 1440), h = Math.floor((m % 1440) / 60), min = m % 60;
-    return [d && `${d} d`, h && `${h} h`, !d && min && `${min} min`].filter(Boolean).join(" ") || "less than a minute";
+    return [d && `${d} ${T.d}`, h && `${h} ${T.h}`, !d && min && `${min} ${T.min}`].filter(Boolean).join(" ") || T.lessMin;
   };
   const salonNow = () => {
     const parts = new Intl.DateTimeFormat("en-GB", { timeZone: CONFIG.timeZone, weekday: "short", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date());
@@ -365,9 +382,9 @@ const LIPS = [
     .map(h => `<span style="left:${pos(h * 60)}%">${String(h).padStart(2, "0")}:00</span>`).join("");
   $(".week__days").innerHTML = CONFIG.hours.map(([name, h], i) => `
     <div class="day${h ? "" : " is-closed"}" style="--i:${i}">
-      <span class="day__name"><span class="day__full">${name}</span><span class="day__short">${name.slice(0, 3)}</span></span>
+      <span class="day__name"><span class="day__full">${T.days[i]}</span><span class="day__short">${T.days[i].slice(0, 3)}</span></span>
       <div class="day__track">${h ? `<span class="day__bar" style="left:${pos(toMin(h[0]))}%;width:${pos(toMin(h[1])) - pos(toMin(h[0]))}%"></span>` : ""}<span class="day__now"></span></div>
-      <span class="day__time">${h ? `${h[0]} – ${h[1]}` : "Closed"}</span>
+      <span class="day__time">${h ? `${h[0]} – ${h[1]}` : T.closed}</span>
     </div>`).join("");
   const dayRows = $$(".day");
   const statusEl = $(".status");
@@ -382,17 +399,17 @@ const LIPS = [
     if (today && now.mins >= toMin(today[0]) && now.mins < toMin(today[1])) {
       const o = toMin(today[0]), c = toMin(today[1]), left = c - now.mins;
       state = left <= 60 ? "closing" : "open";
-      label = left <= 60 ? "Closing soon" : "Open now";
-      detail = `Today until ${today[1]}`;
-      count = `Closes in ${fmtDur(left)}`;
+      label = left <= 60 ? T.closingSoon : T.openNow;
+      detail = T.todayUntil(today[1]);
+      count = T.closesIn(fmtDur(left));
       progress = (now.mins - o) / (c - o);
     } else {
-      state = "closed"; label = "Closed now";
+      state = "closed"; label = T.closedNow;
       for (let k = 0; k <= 7; k++) {
         const d = (now.day + k) % 7, h = CONFIG.hours[d][1];
         if (!h || (k === 0 && now.mins >= toMin(h[0]))) continue;
-        detail = `Opens ${k === 0 ? "today" : k === 1 ? "tomorrow" : CONFIG.hours[d][0]} at ${h[0]}`;
-        count = `in ${fmtDur(k * 1440 + toMin(h[0]) - now.mins)}`;
+        detail = T.opens(k === 0 ? T.today : k === 1 ? T.tomorrow : T.on(T.days[d]), h[0]);
+        count = T.inDur(fmtDur(k * 1440 + toMin(h[0]) - now.mins));
         break;
       }
     }

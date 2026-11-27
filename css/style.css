@@ -919,3 +919,22 @@ a.rating:hover { border-color: var(--ink); transform: translateY(-5px); }
 .ritzy-anim.is-drawn .rz-nails { animation: logoRise .9s var(--ease) .65s forwards; }
 .ritzy-anim.is-drawn .rz-reg { animation: logoRise .6s var(--ease) .95s forwards; }
 .phero__x { opacity: 0; animation: logoRise .8s var(--ease) .2s forwards; transform: translateY(10px); }
+.day.is-today .day__name:lang(el)::after { content: "Σήμερα"; }
+
+/* ---------- Language switch (EN / ΕΛ) ---------- */
+.lang-switch {
+  display: inline-grid; place-items: center; min-width: 38px; height: 32px; padding: 0 8px;
+  border: 1px solid var(--line); border-radius: 20px;
+  font-size: 11px !important; font-weight: 600; letter-spacing: .12em !important;
+  transition: background .3s, color .3s, border-color .3s;
+}
+.lang-switch::after { display: none !important; }
+.lang-switch:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+@media (max-width: 1280px) {
+  .nav__links .lang-switch { font-family: var(--f-sans) !important; font-size: 14px !important; height: 40px; min-width: 56px; border-color: rgba(255,255,255,.4); }
+}
+/* tighter desktop nav so both languages fit next to the logo */
+@media (min-width: 1281px) and (max-width: 1700px) {
+  .nav__links { gap: clamp(14px, 1.5vw, 26px); }
+  .nav__links a:not(.btn):not(.lang-switch) { font-size: 11px; letter-spacing: .12em; }
+}

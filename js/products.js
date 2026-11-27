@@ -3,6 +3,30 @@
    ========================================================== */
 
 const ESHOP = "http://ritzy-nails-greece.gr"; // every "Shop now" button goes here
+const LANG = document.documentElement.lang === "el" ? "el" : "en";
+const BASE = document.documentElement.dataset.base || "";
+const PT = LANG === "el" ? { shop: "Αγορά", shopAria: n => `Αγοράστε ${n} στο e-shop` } : { shop: "Shop now", shopAria: n => `Shop ${n} on the e-shop` };
+/* Greek copy for the product cards (used on el/products.html) */
+const EL_TYPES = {"Premium Builder Gel": "Premium Builder Gel", "Builder Gel + Milky Top": "Builder Gel + Milky Top", "Base": "Βάση", "Gel Polish": "Ημιμόνιμο βερνίκι", "Ritzy LAC Gel Polish Set": "Σετ ημιμόνιμων Ritzy LAC", "Hand-painted designs": "Ζωγραφισμένα σχέδια", "Builder Gel": "Builder Gel", "Ritzy LAC Gel Polish": "Ημιμόνιμα Ritzy LAC"};
+const EL_TEXT = {
+"A soft strawberry-pink builder gel for strong, natural-looking nails.": "Builder gel σε απαλό φράουλα ροζ, για δυνατά νύχια με φυσική όψη.",
+"Milky white builder gel that shapes easily, finished with Milky Top.": "Γαλακτερό λευκό builder gel που πλάθεται εύκολα, με φινίρισμα Milky Top.",
+"A strong, self-levelling base in a soft ballerina pink.": "Δυνατή βάση που απλώνει μόνη της, σε απαλό ροζ ballerina.",
+"A rich, glossy classic red that suits every season.": "Πλούσιο, γυαλιστερό κλασικό κόκκινο για κάθε εποχή.",
+"A summer collection of Ritzy LAC gel polish shades.": "Καλοκαιρινή συλλογή αποχρώσεων Ritzy LAC.",
+"Hand-painted florals and gold foil, created with Ritzy products.": "Ζωγραφισμένα λουλούδια και χρυσό φύλλο, με προϊόντα Ritzy.",
+"Long, strong almond and stiletto shapes with Easy Shape builder gel.": "Μακριά, δυνατά σχήματα almond και stiletto με το Easy Shape builder gel.",
+"The milky white Easy Shape finish, up close.": "Το γαλακτερό λευκό φινίρισμα του Easy Shape από κοντά.",
+"Our builder gel jars, ready for strong, lasting nails.": "Τα builder gel μας, για δυνατά νύχια που κρατάνε.",
+"A creamy rubber base in a natural pink tone.": "Κρεμώδης rubber base σε φυσικό ροζ τόνο.",
+"See the texture: thick enough to build, smooth to apply.": "Δείτε την υφή: αρκετά πυκνή για χτίσιμο, απαλή στο άπλωμα.",
+"Sparkling glitter shades from berry and plum to deep blue and green.": "Λαμπερές glitter αποχρώσεις, από μούρο και δαμασκηνί έως βαθύ μπλε και πράσινο.",
+"Galaxy glitter shades 316, 319 and 320 with a deep, shimmering finish.": "Galaxy glitter αποχρώσεις 316, 319 και 320 με βαθιά λάμψη.",
+"A fresh pastel mint shade.": "Δροσερή παστέλ μέντα.",
+"A soft candy pink shade.": "Απαλό ροζ καραμέλα.",
+"A sparkling ocean-blue glitter.": "Λαμπερό glitter σε μπλε του ωκεανού.",
+"A milky nude for clean, everyday nails.": "Γαλακτερό nude για καθαρά, καθημερινά νύχια."
+};
 
 /* ---- Products (files in assets/products)
    cat: builder | base | lac | art   — names are taken from the product labels ---- */
@@ -69,18 +93,18 @@ const PRODUCTS = [
 
   /* product cards */
   const grid = $(".pgrid");
-  grid.innerHTML = PRODUCTS.map((p, i) => `
+  grid.innerHTML = PRODUCTS.map(p => LANG === "el" ? { ...p, type: EL_TYPES[p.type] || p.type, text: EL_TEXT[p.text] || p.text } : p).map((p, i) => `
     <article class="pcard reveal" data-cat="${p.cat}" style="--d:${i % 3}">
-      <a class="pcard__media" href="${ESHOP}" target="_blank" rel="noopener" aria-label="Shop ${esc(p.name)} on the e-shop">
+      <a class="pcard__media" href="${ESHOP}" target="_blank" rel="noopener" aria-label="${PT.shopAria(esc(p.name))}">
         ${p.video
-          ? `<video muted loop playsinline preload="none" poster="${p.poster}" aria-hidden="true"><source src="${p.video}" type="video/mp4"></video><span class="pcard__badge" aria-hidden="true">▶</span>`
-          : `<img src="${p.img}" alt="${esc(p.name)}" loading="lazy" decoding="async">`}
+          ? `<video muted loop playsinline preload="none" poster="${BASE}${p.poster}" aria-hidden="true"><source src="${BASE}${p.video}" type="video/mp4"></video><span class="pcard__badge" aria-hidden="true">▶</span>`
+          : `<img src="${BASE}${p.img}" alt="${esc(p.name)}" loading="lazy" decoding="async">`}
       </a>
       <div class="pcard__body">
         <p class="pcard__type">${esc(p.type)}</p>
         <h2 class="pcard__name">${esc(p.name)}</h2>
         <p class="pcard__text">${esc(p.text)}</p>
-        <a class="btn btn--full pcard__btn magnetic" href="${ESHOP}" target="_blank" rel="noopener"><span>Shop now</span><i class="btn__arrow" aria-hidden="true">→</i></a>
+        <a class="btn btn--full pcard__btn magnetic" href="${ESHOP}" target="_blank" rel="noopener"><span>${PT.shop}</span><i class="btn__arrow" aria-hidden="true">→</i></a>
       </div>
     </article>`).join("");
 
