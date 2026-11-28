@@ -626,8 +626,10 @@ const T = {
   const scrollCue = $(".scroll-down");
   // floating contact button opens a small menu: WhatsApp or Treatwell
   const fabToggle = $(".fab__toggle");
+  const toTop = $(".to-top");
   const setFab = open => {
     waFloat.classList.toggle("is-open", open);
+    toTop.classList.toggle("is-hidden-by-menu", open);
     fabToggle.setAttribute("aria-expanded", open);
   };
   fabToggle.addEventListener("click", e => { e.stopPropagation(); setFab(!waFloat.classList.contains("is-open")); });
@@ -653,6 +655,10 @@ const T = {
     scrollCue.classList.toggle("is-gone", y > 60);
     const showFab =y > vh - 80 && !(fr.top < innerHeight && fr.bottom > 0);
     waFloat.classList.toggle("is-visible", showFab);
+    // back-to-top: after the first screen; the ring fills with scroll progress
+    toTop.classList.toggle("is-visible", y > innerHeight * 1.2);
+    toTop.classList.toggle("is-stacked", showFab); // sit above the WhatsApp button only while it is shown
+    toTop.style.setProperty("--p", max > 0 ? y / max : 0);
     if (!showFab) setFab(false);
     lastY = y;
 

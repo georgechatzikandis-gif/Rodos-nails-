@@ -233,6 +233,7 @@ PRODUCTS = [
     ('Browse the full Ritzy Nails range, with every colour and size, on the online shop.', 'Δείτε όλη τη σειρά της Ritzy Nails, σε κάθε χρώμα και μέγεθος, στο online κατάστημα.'),
     ('<span>Visit the e-shop</span>', '<span>Επισκεφθείτε το e-shop</span>'),
     ('MAG Nails &amp; Beauty Shop · Rhodes</p>', 'MAG Nails &amp; Beauty Shop · Ρόδος</p>'),
+    ('aria-label="Back to top"', 'aria-label="Επιστροφή στην αρχή"'),
 ]
 
 

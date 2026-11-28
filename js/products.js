@@ -139,8 +139,11 @@ const PRODUCTS = [
 
   /* scroll progress bar */
   const progress = $(".scroll-progress");
+  const toTop = $(".to-top");
   const onScroll = () => {
     const max = document.documentElement.scrollHeight - innerHeight;
+    toTop.classList.toggle("is-visible", scrollY > innerHeight * 1.2);
+    toTop.style.setProperty("--p", max > 0 ? scrollY / max : 0);
     progress.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
   };
   addEventListener("scroll", () => requestAnimationFrame(onScroll), { passive: true });

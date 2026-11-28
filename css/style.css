@@ -974,3 +974,25 @@ a.rating:hover { border-color: var(--ink); transform: translateY(-5px); }
 .faq__item[open] .faq__icon::after { transform: rotate(0deg); }
 .faq__item p { margin: 0; padding: 0 24px 24px; color: var(--ink-soft); animation: faqIn .5s var(--ease); }
 @keyframes faqIn { from { opacity: 0; transform: translateY(-6px); } }
+
+/* ---------- Back to top (stacked above the WhatsApp button, never on top of it) ---------- */
+.to-top {
+  --p: 0; --size: 46px;
+  position: fixed; z-index: 54; right: calc(20px + (58px - var(--size)) / 2); bottom: 20px;
+  display: grid; place-items: center; width: var(--size); height: var(--size); border-radius: 50%;
+  background: rgba(250,247,244,.92); color: var(--ink); box-shadow: 0 10px 26px -10px rgba(0,0,0,.35);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  opacity: 0; transform: translateY(16px) scale(.7); pointer-events: none;
+  transition: opacity .4s, transform .5s var(--ease), bottom .5s var(--ease), background .3s, color .3s;
+}
+.to-top.is-stacked { bottom: calc(20px + 58px + 14px); } /* WhatsApp button is 58px tall at bottom 20px; 14px gap */
+.to-top.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+.to-top.is-hidden-by-menu { opacity: 0; transform: translateY(10px) scale(.7); pointer-events: none; }
+.to-top svg { grid-area: 1 / 1; }
+.to-top__ring { width: 100%; height: 100%; transform: rotate(-90deg); }
+.to-top__ring circle { fill: none; stroke-width: 2; stroke: var(--line); }
+.to-top__ring .to-top__fill { stroke: var(--rose); stroke-linecap: round; stroke-dasharray: 138.2; stroke-dashoffset: calc(138.2 * (1 - var(--p))); transition: stroke-dashoffset .15s linear; }
+.to-top__arrow { width: 18px; height: 18px; transition: transform .4s var(--ease); }
+.to-top:hover { background: var(--ink); color: var(--paper); }
+.to-top:hover .to-top__arrow { transform: translateY(-3px); }
+.nav.is-open ~ .to-top { opacity: 0; pointer-events: none; }
